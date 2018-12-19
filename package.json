@@ -2,7 +2,7 @@
   "name": "book-builder",
   "version": "1.0.0",
   "description": "",
-  "main": "bin/book-builder",
+  "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
