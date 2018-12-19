@@ -1,3 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
 node_modules/
+book-builder/
+chapters/
+images/
+dest/
+contents.md

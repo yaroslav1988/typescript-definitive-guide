@@ -150,12 +150,12 @@ const readFile = filepath => fs.promises.readFile( filepath );
 //             } )
 //             // .finally( resolve );
 // } );
-const createDirectoryIfItDoesNotExist =
-    async dirpath => fs.promises.stat( dirpath )
-                       .catch( async () => {
-                           await fs.promises.mkdir( dirpath );
-                       } );
-
+// const createDirectoryIfItDoesNotExist =
+//     async dirpath => fs.promises.stat( dirpath )
+//                        .catch( async () => {
+//                            await fs.promises.mkdir( dirpath );
+//                        } );
+const createDirectoryIfItDoesNotExist = dirpath => fs.promises.mkdir( dirpath, { recursive: true } );
 
 fs.promises.readdir( PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR ) )
   .then( async filenameAll => {
