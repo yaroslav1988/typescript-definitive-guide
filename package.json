@@ -21,7 +21,7 @@
     "format-html-action": "node ./book-builder/actions/format-html-action.js",
     "scripts": "ntl",
     "start": "cross-env NODE_ENV=development",
-    "book:build": "npm run md-to-html-action && npm run create-book-contents-info-action",
+    "book:build": "node ./bin/book-builder",
     "update": "npm i -D npm-upgrade && npm-upgrade"
   },
   "husky": {
