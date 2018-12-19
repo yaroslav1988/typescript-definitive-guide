@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const MdToHtmlAction = require( '../book-builder/actions/md-to-html-action' );
+const MdToHtmlAction = require.resolve( './book-builder/actions/md-to-html-action' );
+// const MdToHtmlAction = require( '../book-builder/actions/md-to-html-action' );
 const CreateBookContentsInfoAction = require( '../book-builder/actions/create-book-contents-info-action' );
 
 const build = async () => {
