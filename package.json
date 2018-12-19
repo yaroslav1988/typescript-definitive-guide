@@ -2,7 +2,7 @@
   "name": "book-builder",
   "version": "1.0.0",
   "description": "",
-  "main": "./bin/book-builder.js",
+  "main": "bin/book-builder",
   "repository": {
     "type": "git",
     "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "book-builder": "./bin/book-builder.js"
+    "book-builder": "bin/book-builder"
   },
   "scripts": {
     "sitemap-replace-domain": "node ./book-builder/actions/replace-domain-in-sitemmap-action.js",
