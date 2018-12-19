@@ -2,4 +2,4 @@
 
 const shell = require( 'shelljs' );
 
-shell.exec( 'env NODE_ENV=production npm run build' );
+shell.exec( 'env NODE_ENV=production npm run book:build' );
