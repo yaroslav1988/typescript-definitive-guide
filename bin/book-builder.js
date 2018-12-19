@@ -1,5 +1,11 @@
 #!/usr/bin/env node
 
-const shell = require( 'shelljs' );
+const MdToHtmlAction = require( '../book-builder/actions/md-to-html-action' );
+const CreateBookContentsInfoAction = require( '../book-builder/actions/create-book-contents-info-action' );
 
-shell.exec( 'env NODE_ENV=production npm run book:build' );
+const build = async () => {
+    await MdToHtmlAction.action();
+    await CreateBookContentsInfoAction.action();
+};
+
+build();

@@ -14,23 +14,28 @@ const PATH_TO_OUTPUT_FILE_WITH_BOOK_CONTENTS = PathUtils.toAbsolutePath(
 );
 
 
-BookInfoBuilder.build( PathUtils.toAbsolutePath( PATH_TO_DIR_WITH_HTML ) )
-               .then(bookContentsInfo=>BookInfoToBookPageInfoDecorator.decorate(bookContentsInfo))
-               .then( async bookPageInfo => {
-                   try{
-                       await fs.promises.stat( PATH_TO_BOOK_CONTENTS_DIR )
-                               .catch( error => {
-                                   throw error
-                               } );
-                   }catch ( error ) {
-                       await fs.promises.mkdir( PATH_TO_BOOK_CONTENTS_DIR );
-                   }
+const action = async () => {
+    let bookContentsInfo = await BookInfoBuilder.build( PathUtils.toAbsolutePath( PATH_TO_DIR_WITH_HTML ) );
 
-                   await fs.promises.writeFile(
-                       PATH_TO_OUTPUT_FILE_WITH_BOOK_CONTENTS,
-                       JSON.stringify( bookPageInfo )
-                   )
-               })
-               .then( () => console.info( `[INFO] book contents info complete.` ) );
+    let bookPageInfo = await BookInfoToBookPageInfoDecorator.decorate( bookContentsInfo );
 
+    try {
+        await fs.promises.stat( PATH_TO_BOOK_CONTENTS_DIR )
+                .catch( error => {
+                    throw error
+                } );
+    } catch ( error ) {
+        await fs.promises.mkdir( PATH_TO_BOOK_CONTENTS_DIR, { recursive: true } );
+    }
+
+    await fs.promises.writeFile(
+        PATH_TO_OUTPUT_FILE_WITH_BOOK_CONTENTS,
+        JSON.stringify( bookPageInfo )
+    );
+
+    console.info( `[INFO] book contents info complete.` )
+};
+
+
+module.exports = { action };
 

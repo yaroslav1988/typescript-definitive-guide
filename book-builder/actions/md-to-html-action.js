@@ -17,10 +17,11 @@ const SplitIntoSectionFormatter = require( '../formatters/split-into-section-for
 const AddCopySubchapterLinkToBufferButtonAfterH2Formatter = require( '../formatters/add-copy-subchapter-link-to-buffer-button-after-h2-formatter' );
 const AddPathToLinkFormatter = require( '../formatters/add-path-to-link-formatter' );
 const ImageLinkFormatter = require( '../formatters/image-link-formatter' );
+
 /* ---------- */
 
-function addClassToInlineCode(){
-    return function (node,file){
+function addClassToInlineCode () {
+    return function ( node, file ) {
         const parse = node => {
             if ( node.children ) {
                 node.children.forEach( parse );
@@ -48,8 +49,9 @@ function addClassToInlineCode(){
         return node;
     }
 }
-function addIdToH2(){
-    return function (node,file){
+
+function addIdToH2 () {
+    return function ( node, file ) {
         node.children.forEach( node => {
             if ( node.type === 'heading' ) {
 
@@ -80,7 +82,8 @@ function addIdToH2(){
         return node;
     }
 }
-function addClass(){
+
+function addClass () {
     const addClass = node => {
         if ( !node.data ) {
             node.data = {};
@@ -98,19 +101,19 @@ function addClass(){
         return node;
     };
 
-    return function (node,file){
+    return function ( node, file ) {
         const parse = node => {
             if ( node.children ) {
                 node.children.forEach( parse );
             }
             if ( node.type === 'list' ) {
-                addClass(node).data.hProperties.className.push( 'book__list' );
+                addClass( node ).data.hProperties.className.push( 'book__list' );
             }
             if ( node.type === 'listItem' ) {
-                addClass(node).data.hProperties.className.push( 'book__list__item' );
+                addClass( node ).data.hProperties.className.push( 'book__list__item' );
             }
             if ( node.type === 'image' ) {
-                addClass(node).data.hProperties.className.push( 'book__image' );
+                addClass( node ).data.hProperties.className.push( 'book__image' );
             }
         };
 
@@ -121,7 +124,7 @@ function addClass(){
     }
 }
 
-const processor = unified(  )
+const processor = unified()
 
     .use( markdown )
     .use( highlight )
@@ -131,11 +134,9 @@ const processor = unified(  )
     .use( html )
 
 
-
-const PATH_TO_BOOK_DIR = PathUtils.toAbsolutePath(EnvUtils.getProp('path_to_book_dir'));
-const PATH_TO_INPUT_DIR = EnvUtils.getProp('path_to_dir_with_md');
-const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp('path_to_dir_with_html') );
-
+const PATH_TO_BOOK_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_book_dir' ) );
+const PATH_TO_INPUT_DIR = EnvUtils.getProp( 'path_to_dir_with_md' );
+const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_dir_with_html' ) );
 
 
 const readFile = filepath => fs.promises.readFile( filepath );
@@ -157,44 +158,44 @@ const readFile = filepath => fs.promises.readFile( filepath );
 //                        } );
 const createDirectoryIfItDoesNotExist = dirpath => fs.promises.mkdir( dirpath, { recursive: true } );
 
-fs.promises.readdir( PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR ) )
-  .then( async filenameAll => {
-      await createDirectoryIfItDoesNotExist( PATH_TO_BOOK_DIR );
-      await createDirectoryIfItDoesNotExist( PATH_TO_OUTPUT_DIR );
 
-      return filenameAll
-  } )
-  .then( filenameAll => {
-      return filenameAll.reduce( async ( promise, filename ) => {
-          const INPUT_FILENAME = PathUtils.toFilename( filename, PathUtils.MD_EXT );
-          const OUTPUT_FILENAME = TranslitUtils.translitRusToEng( INPUT_FILENAME );
+const action = async () => {
+    let filenameAll = await fs.promises.readdir( PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR ) )
 
-          const INPUT_FILE_PATH = PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR, PathUtils.toMD( INPUT_FILENAME ) );
-
-          const OUTPUT_FILE_PATH = path.join( PATH_TO_OUTPUT_DIR, PathUtils.toHTML( OUTPUT_FILENAME ) );
+    await createDirectoryIfItDoesNotExist( PATH_TO_BOOK_DIR );
+    await createDirectoryIfItDoesNotExist( PATH_TO_OUTPUT_DIR );
 
 
+    await filenameAll.reduce( async ( promise, filename ) => {
+        const INPUT_FILENAME = PathUtils.toFilename( filename, PathUtils.MD_EXT );
+        const OUTPUT_FILENAME = TranslitUtils.translitRusToEng( INPUT_FILENAME );
+
+        const INPUT_FILE_PATH = PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR, PathUtils.toMD( INPUT_FILENAME ) );
+
+        const OUTPUT_FILE_PATH = path.join( PATH_TO_OUTPUT_DIR, PathUtils.toHTML( OUTPUT_FILENAME ) );
 
 
-          let buffer = await readFile( INPUT_FILE_PATH );
-          let data = buffer.toString();
+        let buffer = await readFile( INPUT_FILE_PATH );
+        let data = buffer.toString();
 
-          let file = await processor.process( data );
-          let text = file.toString();
+        let file = await processor.process( data );
+        let text = file.toString();
 
-          const format = compose(
-              AddPathToLinkFormatter.format,
-              AddCopySubchapterLinkToBufferButtonAfterH2Formatter.format,
-              SplitIntoSectionFormatter.format,
-              ImageLinkFormatter.format,
-          );
+        const format = compose(
+            AddPathToLinkFormatter.format,
+            AddCopySubchapterLinkToBufferButtonAfterH2Formatter.format,
+            SplitIntoSectionFormatter.format,
+            ImageLinkFormatter.format,
+        );
 
-          let html = format( text );
+        let html = format( text );
 
-          let result = await fs.promises.writeFile( OUTPUT_FILE_PATH, html );
+        let result = await fs.promises.writeFile( OUTPUT_FILE_PATH, html );
 
 
+        return promise.then( () => result );
+    }, Promise.resolve() );
+};
 
-          return promise.then( () => result );
-      }, Promise.resolve() );
-  } );
+
+module.exports = { action };
