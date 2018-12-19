@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "book-builder": "./bin/book-builder.js"
+  },
   "scripts": {
     "sitemap-replace-domain": "node ./book-builder/actions/replace-domain-in-sitemmap-action.js",
     "preinstall": "npm run update",
@@ -19,12 +28,6 @@
     "test": "echo $INFO",
     "update": "npm i -D npm-upgrade && npm-upgrade"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github-nauchikus:nauchikus/typescript-definitive-guide.git"
-  },
-  "author": "",
-  "license": "ISC",
   "husky": {
     "hooks": {
       "pre-push": "npm run prettier",
