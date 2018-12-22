@@ -1,6 +1,5 @@
 const TranslitUtils = require( '../utils/translit-rus-to-eng' );
 
-const { PREFIX_PATH } = require( '../config' );
 
 function format(html){
     // return html.replace( /<a.*?href="".*?>(?:[“|”|"|']?)(.*?)(?:[“|”|"|']?)<\/a>/g, `<a class="book__chapter__chapter-link" href="/book/contents/$1.html" title="$1">$1</a>`);
