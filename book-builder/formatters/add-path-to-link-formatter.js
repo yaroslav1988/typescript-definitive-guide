@@ -1,5 +1,7 @@
 const TranslitUtils = require( '../utils/translit-rus-to-eng' );
 
+const { PREFIX_PATH } = require( '../config' );
+
 function format(html){
     // return html.replace( /<a.*?href="".*?>(?:[“|”|"|']?)(.*?)(?:[“|”|"|']?)<\/a>/g, `<a class="book__chapter__chapter-link" href="/book/contents/$1.html" title="$1">$1</a>`);
     return html
@@ -9,7 +11,7 @@ function format(html){
             let path = content.replace( /\\/, ' и ' );
             let pathEng = TranslitUtils.translitRusToEng( content );
 
-            let template = `<a class="book__chapter__chapter-link" ref="/book/contents/${pathEng}" title="${content}">${content}</a>`
+            let template = `<a class="book__chapter__chapter-link" href="${PREFIX_PATH}book/contents/${pathEng}" title="${content}">${content}</a>`
 
             return template;
         })
