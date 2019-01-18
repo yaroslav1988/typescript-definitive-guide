@@ -10,7 +10,7 @@ function format(html){
             let path = content.replace( /\\/, ' и ' );
             let pathEng = TranslitUtils.translitRusToEng( content );
 
-            let template = `<a class="book__chapter__chapter-link" href="${PREFIX_PATH}/book/contents/${pathEng}" title="${content}">${content}</a>`
+            let template = `<a class="book__chapter__chapter-link" href="/book/contents/${pathEng}" title="${content}">${content}</a>`
 
             return template;
         })
