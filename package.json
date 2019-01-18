@@ -26,7 +26,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-push": "npm run prettier",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
     }
   },

@@ -1,7 +1,9 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea/
+.vscode/
 node_modules/
 chapters/
 images/
 dest/
 contents.md
+public/
