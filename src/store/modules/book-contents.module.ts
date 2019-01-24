@@ -51,7 +51,6 @@ interface ILocalState {
 
     currentChapterContent: string;
 
-
     currentChapterPath: string | null;
     nextChapterPath: string | null;
     prevChapterPath: string | null;
@@ -285,8 +284,10 @@ export const module: Module<ILocalState, {}> = {
         bookCurrentChapterName: state => state.currentChapterName,
 
         bookCurrentChapterPath: state => state.currentChapterPath,
-        bookNextChapterPath: state => RouterUtils.toBookBasePath(state.nextChapterPath as string),
-        bookPrevChapterPath: state => RouterUtils.toBookBasePath(state.prevChapterPath as string),
+        bookNextChapterPath: state =>
+            RouterUtils.toBookBasePath(state.nextChapterPath as string),
+        bookPrevChapterPath: state =>
+            RouterUtils.toBookBasePath(state.prevChapterPath as string),
 
         isBookNextChapter: state => state.isNextChapter,
         isBookPrevChapter: state => state.isPrevChapter,

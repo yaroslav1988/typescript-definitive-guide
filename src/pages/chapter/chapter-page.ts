@@ -6,10 +6,10 @@ import SharedComponents from '../shared/shared';
 import TreeDirective from '../../directives/tree/tree.directive';
 import SelectionDerective from '../../directives/selected/selection.directive';
 
-import BookGrid from '../../views/book-grid/BookGrid.vue';
-import ContentChapterPage from '../../views/content-chapter-page/ContentChapterPage.vue';
-import DrawerChapterPage from '../../views/drawer-chapter-page/DrawerChapterPage.vue';
-import NavAppDrawer from '../../views/nav-app-drawer/NavAppDrawer.vue';
+import BookGrid from '../../components/book-grid/BookGrid.vue';
+import ContentChapterPage from '../../components/content-chapter-page/ContentChapterPage.vue';
+import DrawerChapterPage from '../../components/drawer-chapter-page/DrawerChapterPage.vue';
+import NavAppDrawer from '../../components/nav-app-drawer/NavAppDrawer.vue';
 
 import ShareSocialBar from '../../components/share-social-bar/ShareSocialBar.vue';
 import SyntaxErrorReportDialog from '../../components/syntax-error-report-dialog/SyntaxErrorReportDialog.vue';

@@ -9,7 +9,7 @@ import AppBugFeedbackMenuItem from '../../components/app-bug-feedback-menu-item/
 import AnimationSendingPromotion from '../../components/animation-sending-promotion/AnimationSendingPromotion.vue';
 import AppHeader from '../../components/app-header/AppHeader.vue';
 import CustomDrawer from '../../components/custom-drawer/CustomDrawer.vue';
-import AppGrid from '../../views/app-grid/AppGrid.vue';
+import AppGrid from '../../components/app-grid/AppGrid.vue';
 import SvgIcon from '../../components/SvgIcon.vue';
 import Vue from 'vue';
 

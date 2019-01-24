@@ -9,8 +9,8 @@ import Tree from '../../components/tree/Tree.vue';
 import CustomCollapse from '../../components/custom-collapse/CustomCollapse.vue';
 import BookContentsChapterInfo from '../../components/book-contents-chapter-info/BookContentsChapterInfo.vue';
 
-import BookGrid from '../../views/book-grid/BookGrid.vue';
-import NavAppDrawer from '../../views/nav-app-drawer/NavAppDrawer.vue';
+import BookGrid from '../../components/book-grid/BookGrid.vue';
+import NavAppDrawer from '../../components/nav-app-drawer/NavAppDrawer.vue';
 
 import { mapActions, mapGetters } from 'vuex';
 import { IComponent } from '@/pages/not-found/not-found-page';

@@ -3,7 +3,7 @@ import { mapActions } from 'vuex';
 import Vue, { ComponentOptions } from 'vue';
 import { IComponent } from '@/pages/not-found/not-found-page';
 
-import HomeGrid from '../../views/home-grid/HomeGrid.vue';
+import HomeGrid from '../../components/home-grid/HomeGrid.vue';
 import ShareSocialBar from '../../components/share-social-bar/ShareSocialBar.vue';
 
 const component: ComponentOptions<IComponent> = {

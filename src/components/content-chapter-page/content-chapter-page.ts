@@ -1,5 +1,5 @@
 import { mapActions, mapGetters } from 'vuex';
-import { SelectionExcludes } from '@/enums/SelectionExcludes';
+import { SelectionExcludes } from '../../enums/SelectionExcludes';
 
 export default {
     props: {
