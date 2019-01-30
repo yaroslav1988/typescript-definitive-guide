@@ -5,7 +5,7 @@ export interface IComponent extends Vue {}
 
 const component: ComponentOptions<IComponent> = {
     computed: {
-        ...mapGetters('book-contents', ['bookCurrentSubchapterAll'])
+        ...mapGetters('note-contents', ['bookCurrentSubchapterAll'])
     }
 };
 

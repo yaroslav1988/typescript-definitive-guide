@@ -4,10 +4,10 @@ import AppBarComponents from '../shared/app-bar';
 import SharedComponents from '../shared/shared';
 
 import DrawerContentsPage from '../../components/drawer-contents-page/DraweContentsPage.vue';
-import ContentContentsPage from '../../components/content-contents-page/ContentContentsPage.vue';
+import ContentContentsPage from '../../components/content-what-is-new-contents-page/ContentContentsPage.vue';
 import Tree from '../../components/tree/Tree.vue';
 import CustomCollapse from '../../components/custom-collapse/CustomCollapse.vue';
-import BookContentsChapterInfo from '../../components/book-contents-chapter-info/BookContentsChapterInfo.vue';
+import BookContentsChapterInfo from '../../components/what-is-new-contents-chapter-info/BookContentsChapterInfo.vue';
 
 import BookGrid from '../../components/book-grid/BookGrid.vue';
 import NavAppDrawer from '../../components/nav-app-drawer/NavAppDrawer.vue';
@@ -45,7 +45,7 @@ const component: ComponentOptions<IComponent> = {
         };
     },
     computed: {
-        ...mapGetters('book-contents', ['isBookContentsLoad']),
+        ...mapGetters('note-contents', ['isBookContentsLoad']),
         ...mapGetters(['isAppDrawerToggle'])
     },
     beforeRouteLeave(this: any, to, from, next) {
@@ -60,9 +60,11 @@ const component: ComponentOptions<IComponent> = {
             this.bookContentsLoad();
         }
     },
-    mounted(this: any) {},
+    mounted(this: any) {
+        this.bookContentsToggleAll();
+    },
     methods: {
-        ...mapActions('book-contents',['bookContentsLoad']),
+        ...mapActions('note-contents',['bookContentsLoad', 'bookContentsToggleAll']),
         ...mapActions([
             'showMainDrawer',
             'hideMainDrawer',

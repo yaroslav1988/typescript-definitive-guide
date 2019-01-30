@@ -58,6 +58,7 @@
             "@/utils",
             "@/pages",
             "@/enums",
+            "@/loaders",
             "@/services",
             "@/directives",
             "@/components",
@@ -77,6 +78,7 @@
                 "@/directives",
                 "@/services",
                 "@/store",
+                "@/loaders",
                 "@/utils",
                 "@vue/test-utils"
             ]

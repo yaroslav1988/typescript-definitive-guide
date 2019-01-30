@@ -11,7 +11,7 @@ export default {
         };
     },
     computed: {
-        ...mapGetters( 'book-contents', [
+        ...mapGetters( 'note-contents', [
             'bookCurrentChapterContent',
             'bookNextChapterPath',
             'bookPrevChapterPath',

@@ -1,11 +1,19 @@
 const {
-    VUE_APP_CONTENTS_URL: contents,
-    VUE_APP_CHAPTERS_URL: chapters
+    VUE_APP_BOOK_CONTENTS_URL,
+    VUE_APP_BOOK_CHAPTERS_URL,
+
+    VUE_APP_NOTE_CONTENTS_URL,
+    VUE_APP_NOTE_CHAPTERS_URL,
 } = process.env;
+
 
 export default {
     book: {
-        contents,
-        chapters
+        contents: VUE_APP_BOOK_CONTENTS_URL,
+        chapters: VUE_APP_BOOK_CHAPTERS_URL
+    },
+    note: {
+        contents: VUE_APP_NOTE_CONTENTS_URL,
+        chapters: VUE_APP_NOTE_CHAPTERS_URL
     }
 };

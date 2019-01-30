@@ -7,8 +7,8 @@ import TreeDirective from '../../directives/tree/tree.directive';
 import SelectionDerective from '../../directives/selected/selection.directive';
 
 import BookGrid from '../../components/book-grid/BookGrid.vue';
-import ContentChapterPage from '../../components/content-chapter-page/ContentChapterPage.vue';
-import DrawerChapterPage from '../../components/drawer-chapter-page/DrawerChapterPage.vue';
+import ContentChapterPage from '../../components/content-chapter-what-is-new-page/ContentChapterPage.vue';
+import DrawerChapterPage from '../../components/drawer-chapter-what-is-new-page/DrawerChapterPage.vue';
 import NavAppDrawer from '../../components/nav-app-drawer/NavAppDrawer.vue';
 
 import ShareSocialBar from '../../components/share-social-bar/ShareSocialBar.vue';
@@ -55,7 +55,7 @@ const component: ComponentOptions<IComponent> = {
     //     return {};
     // },
     computed: {
-        ...mapGetters( 'book-contents',[
+        ...mapGetters( 'note-contents',[
             'isChapterExist',
             'bookCurrentChapterContent',
             'isBookContentsLoad',
@@ -94,7 +94,7 @@ const component: ComponentOptions<IComponent> = {
         }
     },
     methods: {
-        ...mapActions('book-contents', [
+        ...mapActions('note-contents', [
             'bookLoadChapterByName',
             'bookContentsLoad'
         ]),

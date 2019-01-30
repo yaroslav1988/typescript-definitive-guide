@@ -12,7 +12,7 @@ const component: ComponentOptions<IComponent> = {
         return {};
     },
     computed: {
-        ...mapGetters('book-contents', [
+        ...mapGetters('note-contents', [
             'bookContents',
             'isBookContentsToggleAll'
         ]),
@@ -36,7 +36,7 @@ const component: ComponentOptions<IComponent> = {
         console.log('update');
     },
     methods: {
-        ...mapActions([
+        ...mapActions('note-contents', [
             'bookContentsToggleAll',
             'bookContentsToggleByLevelAndIndex'
         ]),

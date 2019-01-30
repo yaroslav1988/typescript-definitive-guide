@@ -1,6 +1,6 @@
 import { Module } from 'vuex';
-import { BookLoader } from '@/facade';
 import * as RouterUtils from '../../utils/router.utils';
+import { IContentsLoader, ILoaderConfig } from '@/loaders/book-loader';
 
 /// TODO think about going back to Leaf type
 interface ILeaf {}
@@ -8,6 +8,7 @@ interface ILeaf {}
 interface INode<T> {
     children?: (INode<T> & T)[];
 }
+
 
 interface ITreeUINode<Data> extends INode<ITreeUINode<Data>> {
     key: string;
@@ -80,6 +81,7 @@ const collapseAll = (nodes: IBookContentsNode[], isCollapsed: boolean) =>
     nodes.forEach(node => {
         node.isCollapsed = isCollapsed;
 
+
         if (node.children !== undefined) {
             collapseAll(node.children, isCollapsed);
         }
@@ -92,7 +94,8 @@ const treeError = (level: number, index: number) =>
 
 const dataToTree = <Data>(
     d: Array<INode<Data> & Data>,
-    level: number = 0
+    level: number = 0,
+    isCollapsed: boolean = true
 ): Array<ITreeUINode<Data>> => {
     const isChildren = (node: INode<Data> & Data): node is INode<Data> & Data =>
         node.children !== undefined && node.children.length > 0;
@@ -147,7 +150,6 @@ const dataToTree = <Data>(
         bookContentsDataAll.map((bookContentsData, index) => {
             const data = bookContentsData;
             const key = `${level}.${index}`;
-            const isCollapsed = true;
 
             if (isChildren(data)) {
                 const children = dataToTree(
@@ -180,8 +182,11 @@ const dataToTree = <Data>(
     return toTree(d);
 };
 
-export const module: Module<ILocalState, {}> = {
-    state: {
+export type IBookContentsModuleFactory = (loader: IContentsLoader) => Module<ILocalState, {}>;
+
+export const moduleFactory: IBookContentsModuleFactory = (loader) => ( {
+    namespaced: true,
+    state: () => ( {
         contents: [],
         isBookContentsToggleAll: true,
 
@@ -202,23 +207,24 @@ export const module: Module<ILocalState, {}> = {
 
         chapterIndex: 0,
         chapterTotalIndex: 0
-    },
+    } ),
     mutations: {
-        addContents: (state: ILocalState, contents: IBookContentsNode[]) => {
+        addContents: ( state: ILocalState, contents: IBookContentsNode[] ) => {
             state.contents = contents;
         },
-        toggleAll: (state: ILocalState) => {
+        toggleAll: ( state: ILocalState ) => {
             state.isBookContentsToggleAll = !state.isBookContentsToggleAll;
 
-            collapseAll(state.contents, state.isBookContentsToggleAll);
-        },
-        toggleByLevelAndIndex: (state: ILocalState, { level, index }) => {
-            const node = findNode(level, index, state.contents);
 
-            if (node) {
+            collapseAll( state.contents, state.isBookContentsToggleAll );
+        },
+        toggleByLevelAndIndex: ( state: ILocalState, { level, index } ) => {
+            const node = findNode( level, index, state.contents );
+
+            if ( node ) {
                 node.isCollapsed = !node.isCollapsed;
             } else {
-                throw treeError(level, index);
+                throw treeError( level, index );
             }
         },
 
@@ -233,10 +239,10 @@ export const module: Module<ILocalState, {}> = {
                 info => info.data.path === chapterName
             ) as IBookContentsNode;
 
-            let currentChapterIndex = contents.indexOf(currentChapter);
+            let currentChapterIndex = contents.indexOf( currentChapter );
 
-            let nextChapter = contents[currentChapterIndex + 1];
-            let prevChapter = contents[currentChapterIndex - 1];
+            let nextChapter = contents[ currentChapterIndex + 1 ];
+            let prevChapter = contents[ currentChapterIndex - 1 ];
 
             state.currentChapterName = currentChapter.data.name;
 
@@ -249,33 +255,31 @@ export const module: Module<ILocalState, {}> = {
 
             state.chapterIndex = currentChapterIndex;
             state.chapterTotalIndex = contents.length;
-            state.currentSubChapterAll = currentChapter.children as ITreeUINode<
-                IBookSubchapter
-            >[];
+            state.currentSubChapterAll = currentChapter.children as ITreeUINode<IBookSubchapter>[];
         }
     },
     actions: {
-        bookContentsLoad: async ({ state, commit }) => {
-            if (!state.contents.length) {
-                const data: BookContentsDataNode[] = await BookLoader.loadContents();
-                const contents = dataToTree(data);
+        bookContentsLoad: async ( { state, commit } ) => {
+            if ( !state.contents.length ) {
+                const data: BookContentsDataNode[] = await loader.loadContents();
+                const contents = dataToTree( data, 0, state.isBookContentsToggleAll );
 
-                commit('addContents', contents);
+                commit( 'addContents', contents );
             }
         },
-        async bookLoadChapterByName({ state, commit }, chapterName: string) {
-            let chapter = await BookLoader.loadChapterByName(chapterName);
+        async bookLoadChapterByName ( { state, commit }, chapterName: string ) {
+            let chapter = await loader.loadChapterByName( chapterName );
 
-            commit('setChapter', { chapter, chapterName });
+            commit( 'setChapter', { chapter, chapterName } );
         },
-        bookContentsToggleAll: ({ state, commit }) => {
-            commit('toggleAll');
+        bookContentsToggleAll: ( { state, commit } ) => {
+            commit( 'toggleAll' );
         },
         bookContentsToggleByLevelAndIndex: (
             { state, commit },
             { level, index }
         ) => {
-            commit('toggleByLevelAndIndex', { level, index });
+            commit( 'toggleByLevelAndIndex', { level, index } );
         }
     },
     getters: {
@@ -285,9 +289,9 @@ export const module: Module<ILocalState, {}> = {
 
         bookCurrentChapterPath: state => state.currentChapterPath,
         bookNextChapterPath: state =>
-            RouterUtils.toBookBasePath(state.nextChapterPath as string),
+            RouterUtils.toBookBasePath( state.nextChapterPath as string ),
         bookPrevChapterPath: state =>
-            RouterUtils.toBookBasePath(state.prevChapterPath as string),
+            RouterUtils.toBookBasePath( state.prevChapterPath as string ),
 
         isBookNextChapter: state => state.isNextChapter,
         isBookPrevChapter: state => state.isPrevChapter,
@@ -313,27 +317,27 @@ export const module: Module<ILocalState, {}> = {
                 chapter => chapter.data.path === chapterName
             );
 
-            if (chapter === undefined) {
+            if ( chapter === undefined ) {
                 return false;
             }
 
-            if (subchapterName === undefined) {
+            if ( subchapterName === undefined ) {
                 return true;
             }
 
-            if (chapter.children === undefined) {
+            if ( chapter.children === undefined ) {
                 return false;
             }
 
             let isSubchapterExistValid = chapter.children.some(
                 subchapter =>
-                    (subchapter.data as IBookSubchapter).anchor ===
+                    ( subchapter.data as IBookSubchapter ).anchor ===
                     subchapterName
             );
 
             return isSubchapterExistValid;
         },
-        getChapterNameByChapterPath: state => (chapterPath: string) => {
+        getChapterNameByChapterPath: state => ( chapterPath: string ) => {
             let chapter = state.contents.find(
                 info => info.data.path === chapterPath
             );
@@ -341,4 +345,4 @@ export const module: Module<ILocalState, {}> = {
             return chapter !== undefined ? chapter.data.name : '';
         }
     }
-};
+} );

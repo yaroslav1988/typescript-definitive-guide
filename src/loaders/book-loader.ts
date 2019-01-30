@@ -26,42 +26,33 @@ export const UrlLoader: ILoader = {
     }
 };
 
-export const Loader = ((loader: ILoader) => ({
+export interface ILoaderConfig {
+    contents: string;
+    chapters: string;
+}
+
+export const Loader = ((loader: ILoader) => (config: ILoaderConfig) => ({
     loadContents() {
-        let url = AppConfig.book.contents;
+        let url = config.contents;
 
         return loader
             .get(url, jsonGetOptions)
             .then(response => response.json());
     },
     loadChapterByName(name: string) {
-        let url = `${AppConfig.book.chapters}/${name}.html`;
+        let url = `${config.chapters}/${name}.html`;
+
 
         return loader
             .get(url, textGetOptions)
             .then(response => response.text());
-        // .then( response => {
-        //     if ( response.body === null ) {
-        //         throw new Error( 'body must not be null' );
-        //     }
-        //
-        //
-        //     let reader = response.body.getReader();
-        //     let result = '';
-        //
-        //     const byteToString = ( bytes: number ) => String.fromCharCode.apply( null, bytes );
-        //
-        //     const read: IRead = ( { value, done } ) => {
-        //         result += byteToString( value );
-        //
-        //         if ( done ) {
-        //             return result;
-        //         }
-        //
-        //         return reader.read().then( read );
-        //     };
-        //
-        //     return reader.read().then( read );
-        // } );
     }
 }))(UrlLoader);
+
+
+export type IContentsLoader = ReturnType<typeof Loader>;
+
+export const BookLoader = Loader( { ...AppConfig.book } );
+export const NoteLoader = Loader( { ...AppConfig.note } );
+
+
