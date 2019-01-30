@@ -62,7 +62,7 @@ const component: ComponentOptions<IComponent> = {
     },
     mounted(this: any) {},
     methods: {
-        ...mapActions('book-contents',['bookContentsLoad']),
+        ...mapActions('book-contents', ['bookContentsLoad']),
         ...mapActions([
             'showMainDrawer',
             'hideMainDrawer',

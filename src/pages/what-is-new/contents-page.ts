@@ -64,7 +64,10 @@ const component: ComponentOptions<IComponent> = {
         this.bookContentsToggleAll();
     },
     methods: {
-        ...mapActions('note-contents',['bookContentsLoad', 'bookContentsToggleAll']),
+        ...mapActions('note-contents', [
+            'bookContentsLoad',
+            'bookContentsToggleAll'
+        ]),
         ...mapActions([
             'showMainDrawer',
             'hideMainDrawer',

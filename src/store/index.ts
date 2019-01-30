@@ -10,11 +10,12 @@ import { BookContentsModule, NoteContentsModule } from '@/facade';
 
 Vue.use(Vuex);
 
-const store = ( () => new Vuex.Store( {
-    state: {},
-    mutations: {},
-    actions: {}
-} ) )();
+const store = (() =>
+    new Vuex.Store({
+        state: {},
+        mutations: {},
+        actions: {}
+    }))();
 
 store.registerModule('app-ui', AppUiModule.module);
 store.registerModule('app-configuration', AppConfigurationModule.module);

@@ -6,14 +6,12 @@ export { default as AppConfig } from './configuration';
 
 import { BookLoader, NoteLoader } from './loaders/book-loader';
 
-
 /** Vuex Modules */
 
 import { moduleFactory } from './store/modules/book-contents.module';
 
-export const BookContentsModule = moduleFactory( BookLoader );
-export const NoteContentsModule = moduleFactory( NoteLoader );
-
+export const BookContentsModule = moduleFactory(BookLoader);
+export const NoteContentsModule = moduleFactory(NoteLoader);
 
 /** Vue Components */
 /// TODO [refactoring]

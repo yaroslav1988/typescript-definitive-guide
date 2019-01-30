@@ -26,7 +26,7 @@ export const create = (store: Store<{}>) => {
 
                 name: 'what-is-new',
                 component: () =>
-                    import(/* webpackChunkName: "what-is-new" */ './pages/what-is-new/WhatIsNewPage.vue'),
+                    import(/* webpackChunkName: "what-is-new" */ './pages/what-is-new/WhatIsNewPage.vue')
                 // beforeEnter: async (to, from, next) => {
                 //     let isEnterToApp = from.name === null;
                 //
@@ -59,12 +59,10 @@ export const create = (store: Store<{}>) => {
                     if (isEnterToApp) {
                         await store.dispatch('note-contents/bookContentsLoad');
 
-
                         let { chapter, subchapter } = to.params;
-                        let isRouteExist = store.getters['note-contents/isChapterExist'](
-                            chapter,
-                            subchapter
-                        );
+                        let isRouteExist = store.getters[
+                            'note-contents/isChapterExist'
+                        ](chapter, subchapter);
 
                         if (!isRouteExist) {
                             store.dispatch('activateNotFoundRouterFlag');
@@ -98,12 +96,10 @@ export const create = (store: Store<{}>) => {
                     if (isEnterToApp) {
                         await store.dispatch('book-contents/bookContentsLoad');
 
-
                         let { chapter, subchapter } = to.params;
-                        let isRouteExist = store.getters['book-contents/isChapterExist'](
-                            chapter,
-                            subchapter
-                        );
+                        let isRouteExist = store.getters[
+                            'book-contents/isChapterExist'
+                        ](chapter, subchapter);
 
                         if (!isRouteExist) {
                             store.dispatch('activateNotFoundRouterFlag');

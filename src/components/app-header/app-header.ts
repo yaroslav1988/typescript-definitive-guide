@@ -5,11 +5,11 @@ export interface IComponent extends Vue {}
 
 const component: ComponentOptions<IComponent> = {
     computed: {
-        ...mapGetters('book-contents',[
+        ...mapGetters('book-contents', [
             'isCurrentChapterContentLoaded',
             'bookCurrentChapterName',
             'bookCurrentChapterIndex',
-            'bookChapterTotalIndex',
+            'bookChapterTotalIndex'
         ]),
         ...mapGetters([
             'appTelegramChanelLink',

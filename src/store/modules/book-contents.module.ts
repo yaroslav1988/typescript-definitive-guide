@@ -9,7 +9,6 @@ interface INode<T> {
     children?: (INode<T> & T)[];
 }
 
-
 interface ITreeUINode<Data> extends INode<ITreeUINode<Data>> {
     key: string;
     index: number;
@@ -80,7 +79,6 @@ const findNode = <T extends INode<T>>(
 const collapseAll = (nodes: IBookContentsNode[], isCollapsed: boolean) =>
     nodes.forEach(node => {
         node.isCollapsed = isCollapsed;
-
 
         if (node.children !== undefined) {
             collapseAll(node.children, isCollapsed);
@@ -182,11 +180,13 @@ const dataToTree = <Data>(
     return toTree(d);
 };
 
-export type IBookContentsModuleFactory = (loader: IContentsLoader) => Module<ILocalState, {}>;
+export type IBookContentsModuleFactory = (
+    loader: IContentsLoader
+) => Module<ILocalState, {}>;
 
-export const moduleFactory: IBookContentsModuleFactory = (loader) => ( {
+export const moduleFactory: IBookContentsModuleFactory = loader => ({
     namespaced: true,
-    state: () => ( {
+    state: () => ({
         contents: [],
         isBookContentsToggleAll: true,
 
@@ -207,24 +207,23 @@ export const moduleFactory: IBookContentsModuleFactory = (loader) => ( {
 
         chapterIndex: 0,
         chapterTotalIndex: 0
-    } ),
+    }),
     mutations: {
-        addContents: ( state: ILocalState, contents: IBookContentsNode[] ) => {
+        addContents: (state: ILocalState, contents: IBookContentsNode[]) => {
             state.contents = contents;
         },
-        toggleAll: ( state: ILocalState ) => {
+        toggleAll: (state: ILocalState) => {
             state.isBookContentsToggleAll = !state.isBookContentsToggleAll;
 
-
-            collapseAll( state.contents, state.isBookContentsToggleAll );
+            collapseAll(state.contents, state.isBookContentsToggleAll);
         },
-        toggleByLevelAndIndex: ( state: ILocalState, { level, index } ) => {
-            const node = findNode( level, index, state.contents );
+        toggleByLevelAndIndex: (state: ILocalState, { level, index }) => {
+            const node = findNode(level, index, state.contents);
 
-            if ( node ) {
+            if (node) {
                 node.isCollapsed = !node.isCollapsed;
             } else {
-                throw treeError( level, index );
+                throw treeError(level, index);
             }
         },
 
@@ -239,10 +238,10 @@ export const moduleFactory: IBookContentsModuleFactory = (loader) => ( {
                 info => info.data.path === chapterName
             ) as IBookContentsNode;
 
-            let currentChapterIndex = contents.indexOf( currentChapter );
+            let currentChapterIndex = contents.indexOf(currentChapter);
 
-            let nextChapter = contents[ currentChapterIndex + 1 ];
-            let prevChapter = contents[ currentChapterIndex - 1 ];
+            let nextChapter = contents[currentChapterIndex + 1];
+            let prevChapter = contents[currentChapterIndex - 1];
 
             state.currentChapterName = currentChapter.data.name;
 
@@ -255,31 +254,37 @@ export const moduleFactory: IBookContentsModuleFactory = (loader) => ( {
 
             state.chapterIndex = currentChapterIndex;
             state.chapterTotalIndex = contents.length;
-            state.currentSubChapterAll = currentChapter.children as ITreeUINode<IBookSubchapter>[];
+            state.currentSubChapterAll = currentChapter.children as ITreeUINode<
+                IBookSubchapter
+            >[];
         }
     },
     actions: {
-        bookContentsLoad: async ( { state, commit } ) => {
-            if ( !state.contents.length ) {
+        bookContentsLoad: async ({ state, commit }) => {
+            if (!state.contents.length) {
                 const data: BookContentsDataNode[] = await loader.loadContents();
-                const contents = dataToTree( data, 0, state.isBookContentsToggleAll );
+                const contents = dataToTree(
+                    data,
+                    0,
+                    state.isBookContentsToggleAll
+                );
 
-                commit( 'addContents', contents );
+                commit('addContents', contents);
             }
         },
-        async bookLoadChapterByName ( { state, commit }, chapterName: string ) {
-            let chapter = await loader.loadChapterByName( chapterName );
+        async bookLoadChapterByName({ state, commit }, chapterName: string) {
+            let chapter = await loader.loadChapterByName(chapterName);
 
-            commit( 'setChapter', { chapter, chapterName } );
+            commit('setChapter', { chapter, chapterName });
         },
-        bookContentsToggleAll: ( { state, commit } ) => {
-            commit( 'toggleAll' );
+        bookContentsToggleAll: ({ state, commit }) => {
+            commit('toggleAll');
         },
         bookContentsToggleByLevelAndIndex: (
             { state, commit },
             { level, index }
         ) => {
-            commit( 'toggleByLevelAndIndex', { level, index } );
+            commit('toggleByLevelAndIndex', { level, index });
         }
     },
     getters: {
@@ -289,9 +294,9 @@ export const moduleFactory: IBookContentsModuleFactory = (loader) => ( {
 
         bookCurrentChapterPath: state => state.currentChapterPath,
         bookNextChapterPath: state =>
-            RouterUtils.toBookBasePath( state.nextChapterPath as string ),
+            RouterUtils.toBookBasePath(state.nextChapterPath as string),
         bookPrevChapterPath: state =>
-            RouterUtils.toBookBasePath( state.prevChapterPath as string ),
+            RouterUtils.toBookBasePath(state.prevChapterPath as string),
 
         isBookNextChapter: state => state.isNextChapter,
         isBookPrevChapter: state => state.isPrevChapter,
@@ -317,27 +322,27 @@ export const moduleFactory: IBookContentsModuleFactory = (loader) => ( {
                 chapter => chapter.data.path === chapterName
             );
 
-            if ( chapter === undefined ) {
+            if (chapter === undefined) {
                 return false;
             }
 
-            if ( subchapterName === undefined ) {
+            if (subchapterName === undefined) {
                 return true;
             }
 
-            if ( chapter.children === undefined ) {
+            if (chapter.children === undefined) {
                 return false;
             }
 
             let isSubchapterExistValid = chapter.children.some(
                 subchapter =>
-                    ( subchapter.data as IBookSubchapter ).anchor ===
+                    (subchapter.data as IBookSubchapter).anchor ===
                     subchapterName
             );
 
             return isSubchapterExistValid;
         },
-        getChapterNameByChapterPath: state => ( chapterPath: string ) => {
+        getChapterNameByChapterPath: state => (chapterPath: string) => {
             let chapter = state.contents.find(
                 info => info.data.path === chapterPath
             );
@@ -345,4 +350,4 @@ export const moduleFactory: IBookContentsModuleFactory = (loader) => ( {
             return chapter !== undefined ? chapter.data.name : '';
         }
     }
-} );
+});

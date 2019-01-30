@@ -11,38 +11,37 @@ export default {
         };
     },
     computed: {
-        ...mapGetters( 'note-contents', [
+        ...mapGetters('note-contents', [
             'bookCurrentChapterContent',
             'bookNextChapterPath',
             'bookPrevChapterPath',
             'isBookNextChapter',
             'isBookPrevChapter',
 
-
             'bookChapterTextSelectionPosition',
 
             'getChapterNameByChapterPath'
-        ] ),
-        ...mapGetters( [
+        ]),
+        ...mapGetters([
             'isBookChapterTextSelected',
             'isAppDrawerToggle',
-            'scrollToElementWithId',
-        ] ),
-        chapterRepoHref ( this: any ) {
+            'scrollToElementWithId'
+        ]),
+        chapterRepoHref(this: any) {
             let {
                 params: { chapter: chapterPath }
             } = this.$route;
-            let chapterName = this.getChapterNameByChapterPath( chapterPath );
+            let chapterName = this.getChapterNameByChapterPath(chapterPath);
 
-            let chapterRepoHref = `https://github.com/nauchikus/typescript-definitive-guide/blob/master/chapters/${ chapterName }.md`;
+            let chapterRepoHref = `https://github.com/nauchikus/typescript-definitive-guide/blob/master/chapters/${chapterName}.md`;
 
             return chapterRepoHref;
         },
-        drawerState ( this: any ) {
+        drawerState(this: any) {
             return this.isAppDrawerToggle ? 'open' : 'close';
         },
-        reportAboutSyntaxErrorButtonPositionStyle ( this: any ) {
-            return { top: `${ this.bookChapterTextSelectionPosition.y }px` };
+        reportAboutSyntaxErrorButtonPositionStyle(this: any) {
+            return { top: `${this.bookChapterTextSelectionPosition.y}px` };
         }
     },
     mounted(this: any) {},

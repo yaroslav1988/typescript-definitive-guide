@@ -16,8 +16,6 @@ import SyntaxErrorReportDialog from '../../components/syntax-error-report-dialog
 import NotFoundPlaceholder from '../../components/not-found-placeholder/NotFoundPlaceholder.vue';
 import { mapActions, mapGetters, createNamespacedHelpers } from 'vuex';
 
-
-
 export interface IComponent extends Vue {}
 
 const component: ComponentOptions<IComponent> = {
@@ -55,18 +53,14 @@ const component: ComponentOptions<IComponent> = {
     //     return {};
     // },
     computed: {
-        ...mapGetters( 'book-contents',[
+        ...mapGetters('book-contents', [
             'isChapterExist',
             'bookCurrentChapterContent',
             'isBookContentsLoad',
             'bookChapterIndex',
             'bookChapterLength'
         ]),
-        ...mapGetters([
-            'isGlobalProgressBar',
-            'isNotFoundRoute',
-
-        ]),
+        ...mapGetters(['isGlobalProgressBar', 'isNotFoundRoute'])
     },
     beforeRouteUpdate(this: any, to, from, next) {
         let { chapter: toChapter, subchapter: toSubchapter } = to.params;

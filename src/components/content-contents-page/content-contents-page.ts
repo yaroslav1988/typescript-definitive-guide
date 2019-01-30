@@ -3,7 +3,6 @@ import Vue, { ComponentOptions } from 'vue';
 
 export interface IComponent extends Vue {}
 
-
 const component: ComponentOptions<IComponent> = {
     name: 'CustomDialog',
     // components: {},
@@ -16,9 +15,7 @@ const component: ComponentOptions<IComponent> = {
             'bookContents',
             'isBookContentsToggleAll'
         ]),
-        ...mapGetters([
-            'isAppDrawerToggle',
-        ]),
+        ...mapGetters(['isAppDrawerToggle']),
 
         isBookContentsCollapseAll(this: any) {
             return this.isBookContentsToggleAll === true

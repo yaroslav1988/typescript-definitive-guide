@@ -42,17 +42,13 @@ export const Loader = ((loader: ILoader) => (config: ILoaderConfig) => ({
     loadChapterByName(name: string) {
         let url = `${config.chapters}/${name}.html`;
 
-
         return loader
             .get(url, textGetOptions)
             .then(response => response.text());
     }
 }))(UrlLoader);
 
-
 export type IContentsLoader = ReturnType<typeof Loader>;
 
-export const BookLoader = Loader( { ...AppConfig.book } );
-export const NoteLoader = Loader( { ...AppConfig.note } );
-
-
+export const BookLoader = Loader({ ...AppConfig.book });
+export const NoteLoader = Loader({ ...AppConfig.note });
