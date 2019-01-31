@@ -1,5 +1,8 @@
 const fs = require( 'fs' );
 const path = require( 'path' );
+const util = require( 'util' );
+
+const copydir = util.promisify( require( 'copy-dir' ) );
 
 const unified = require( 'unified' );
 const markdown = require( 'remark-parse' );
@@ -7,6 +10,7 @@ const html = require( 'remark-html' );
 const highlight = require( 'remark-highlight.js' );
 
 const EnvUtils = require( '../utils/env-utils' );
+const FsUtils = require( '../utils/fs' );
 const TranslitUtils = require( '../utils/translit-rus-to-eng' );
 const PathUtils = require( '../utils/path-utils' );
 const compose = require( '../utils/compose' );
@@ -136,65 +140,98 @@ const processor = unified()
 
 const PATH_TO_BOOK_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_book_dir' ) );
 const PATH_TO_INPUT_DIR = EnvUtils.getProp( 'path_to_dir_with_md' );
-const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_dir_with_html' ) );
+const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_dir_with_temporary_html' ) );
 
 
 const readFile = filepath => fs.promises.readFile( filepath );
 
-// ekskurs_v_tipizacziyu_-_silьnaya_i_slabaya_tipizacziya
 
-
-// const createDirectoryIfItDoesNotExist = dirpath => new Promise( async ( resolve, reject ) => {
-//     await fs.promises.stat( dirpath )
-//             .catch( async error => {
-//                 await fs.promises.mkdir( dirpath );
-//             } )
-//             // .finally( resolve );
-// } );
-// const createDirectoryIfItDoesNotExist =
-//     async dirpath => fs.promises.stat( dirpath )
-//                        .catch( async () => {
-//                            await fs.promises.mkdir( dirpath );
-//                        } );
 const createDirectoryIfItDoesNotExist = dirpath => fs.promises.mkdir( dirpath, { recursive: true } );
+const readdir = async path =>  await fs.promises.readdir( PathUtils.toAbsolutePath( path ) );
 
 
 const action = async () => {
-    let filenameAll = await fs.promises.readdir( PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR ) )
+    const mdToHtml = async version => {
+        let pathAll = await readdir( path.join(PATH_TO_INPUT_DIR,version ));
+        let customStatsAll = await Promise.all( pathAll.map( async fileOrDirPath => {
+            let stats = await fs.promises.stat( PathUtils.toAbsolutePath( path.join( path.join( PATH_TO_INPUT_DIR, version ), fileOrDirPath ) ) );
 
-    await createDirectoryIfItDoesNotExist( PATH_TO_BOOK_DIR );
-    await createDirectoryIfItDoesNotExist( PATH_TO_OUTPUT_DIR );
-
-
-    await filenameAll.reduce( async ( promise, filename ) => {
-        const INPUT_FILENAME = PathUtils.toFilename( filename, PathUtils.MD_EXT );
-        const OUTPUT_FILENAME = TranslitUtils.translitRusToEng( INPUT_FILENAME );
-
-        const INPUT_FILE_PATH = PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR, PathUtils.toMD( INPUT_FILENAME ) );
-
-        const OUTPUT_FILE_PATH = path.join( PATH_TO_OUTPUT_DIR, PathUtils.toHTML( OUTPUT_FILENAME ) );
+            return ( {
+                name: fileOrDirPath,
+                isFile: stats.isFile(),
+                isDirectory: stats.isDirectory()
+            } );
+        } ) );
 
 
-        let buffer = await readFile( INPUT_FILE_PATH );
-        let data = buffer.toString();
-
-        let file = await processor.process( data );
-        let text = file.toString();
-
-        const format = compose(
-            AddPathToLinkFormatter.format,
-            AddCopySubchapterLinkToBufferButtonAfterH2Formatter.format,
-            SplitIntoSectionFormatter.format,
-            ImageLinkFormatter.format,
-        );
-
-        let html = format( text );
-
-        let result = await fs.promises.writeFile( OUTPUT_FILE_PATH, html );
+        let dirnameAll = customStatsAll
+            .filter( stats => stats.isDirectory )
+            .map( stats => stats.name );
+        let filenameAll = customStatsAll
+            .filter( stats => stats.isFile )
+            .map( stats => stats.name );
 
 
-        return promise.then( () => result );
-    }, Promise.resolve() );
+
+        let filePromiseAll = filenameAll.map( async filename => {
+            const INPUT_FILENAME = PathUtils.toFilename( filename, PathUtils.MD_EXT );
+            const OUTPUT_FILENAME = TranslitUtils.translitRusToEng( INPUT_FILENAME );
+
+            const INPUT_FILE_PATH = PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR, version, PathUtils.toMD( INPUT_FILENAME ) );
+
+            const OUTPUT_DIR_PATH = path.join( PATH_TO_OUTPUT_DIR, version );
+            const OUTPUT_FILE_PATH = path.join( OUTPUT_DIR_PATH, PathUtils.toHTML( OUTPUT_FILENAME ) );
+
+
+            await createDirectoryIfItDoesNotExist( OUTPUT_DIR_PATH );
+
+
+            let buffer = await readFile( INPUT_FILE_PATH );
+
+            let data = buffer.toString();
+            let file = await processor.process( data );
+
+            let text = file.toString();
+
+            const format = compose(
+                AddPathToLinkFormatter.format,
+                AddCopySubchapterLinkToBufferButtonAfterH2Formatter.format,
+                SplitIntoSectionFormatter.format,
+                ImageLinkFormatter.format,
+            );
+
+            let html = format( text );
+
+            let promise = FsUtils.writefile( OUTPUT_FILE_PATH, html );
+
+
+            return promise;
+        } );
+
+        let dirPromiseAll = dirnameAll.map( dirname => {
+            const INPUT_FILE_PATH = PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR, version, dirname );
+            const OUTPUT_DIR_PATH = path.join( PATH_TO_OUTPUT_DIR, version, dirname );
+
+            let promise = copydir( INPUT_FILE_PATH, OUTPUT_DIR_PATH );
+
+
+            return promise;
+        } );
+
+
+        await Promise.all( [
+            ...filePromiseAll,
+            ...dirPromiseAll
+        ] )
+                     .catch( error => console.log( error.message ) );
+    };
+
+
+
+    let versionDirAll = await readdir( PATH_TO_INPUT_DIR );
+
+
+    await Promise.all( versionDirAll.map( noteDirPath => mdToHtml( path.join( noteDirPath ) ) ) );
 };
 
 
