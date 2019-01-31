@@ -1,4 +1,4 @@
-const MdToHtmlAction = require( '../what-is-new-builder/actions/md-to-html-action' );
+const MdToHtmlAction = require( '../whats-is-new-builder/actions/md-to-html-action' );
 
 
 MdToHtmlAction.action()

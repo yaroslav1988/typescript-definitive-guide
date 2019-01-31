@@ -1,4 +1,4 @@
-const MdToHtmlAction = require( '../what-is-new-builder/actions/create-book-contents-info-action' );
+const MdToHtmlAction = require( '../whats-is-new-builder/actions/create-book-contents-info-action' );
 
 
 MdToHtmlAction.action()

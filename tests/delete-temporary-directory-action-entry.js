@@ -1,4 +1,4 @@
-const MdToHtmlAction = require( '../what-is-new-builder/actions/delete-temporary-directory-action' );
+const MdToHtmlAction = require( '../whats-is-new-builder/actions/delete-temporary-directory-action' );
 
 
 MdToHtmlAction.action()
