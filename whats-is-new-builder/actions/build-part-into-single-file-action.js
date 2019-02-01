@@ -87,7 +87,9 @@ const action = async () => {
         let resultHtmlData = resultPartHtmlDataAll.join( '\n' );
 
 
-        const OUTPUT_DIR_PATH = path.join( PATH_TO_OUTPUT_DIR, version );
+        const VERSION_NORMALIZE = TranslitUtils.translitRusToEng( version );
+
+        const OUTPUT_DIR_PATH = path.join( PATH_TO_OUTPUT_DIR, VERSION_NORMALIZE );
 
 
         let resultPromiseAll = [
