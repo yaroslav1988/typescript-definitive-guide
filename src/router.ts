@@ -22,9 +22,9 @@ export const create = (store: Store<{}>) => {
                     import(/* webpackChunkName: "home" */ './pages/home/HomePage.vue')
             },
             {
-                path: '/what-is-new',
+                path: '/whats-is-new',
 
-                name: 'what-is-new',
+                name: 'whats-is-new',
                 component: () =>
                     import(/* webpackChunkName: "what-is-new" */ './pages/what-is-new/WhatIsNewPage.vue')
                 // beforeEnter: async (to, from, next) => {
@@ -49,7 +49,7 @@ export const create = (store: Store<{}>) => {
                 // }
             },
             {
-                path: '/what-is-new/:chapter/:subchapter?',
+                path: '/whats-is-new/:chapter/:subchapter?',
                 name: 'note',
                 component: () =>
                     import(/* webpackChunkName: "chapter" */ './pages/note/ChapterPage.vue'),

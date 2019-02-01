@@ -260,7 +260,7 @@ export const moduleFactory: IBookContentsModuleFactory = loader => ({
         }
     },
     actions: {
-        bookContentsLoad: async ({ state, commit }) => {
+        bookContentsLoad: async ({ state, commit,  }) => {
             if (!state.contents.length) {
                 const data: BookContentsDataNode[] = await loader.loadContents();
                 const contents = dataToTree(
@@ -272,7 +272,7 @@ export const moduleFactory: IBookContentsModuleFactory = loader => ({
                 commit('addContents', contents);
             }
         },
-        async bookLoadChapterByName({ state, commit }, chapterName: string) {
+        async bookLoadChapterByName({ state, commit, getters }, chapterName: string) {
             let chapter = await loader.loadChapterByName(chapterName);
 
             commit('setChapter', { chapter, chapterName });
@@ -341,6 +341,14 @@ export const moduleFactory: IBookContentsModuleFactory = loader => ({
             );
 
             return isSubchapterExistValid;
+        },
+        getChapterPathByChapterName: state => (chapterName: string) => {
+            let chapter = state.contents.find(
+                info => info.data.name === chapterName
+            );
+
+
+            return chapter !== undefined ? chapter.data.path : '';
         },
         getChapterNameByChapterPath: state => (chapterPath: string) => {
             let chapter = state.contents.find(
