@@ -3,6 +3,6 @@
 .vscode/
 node_modules/
 public/book/
-public/what-is-new/
+public/whats-is-new/
 dest/
 notes/
