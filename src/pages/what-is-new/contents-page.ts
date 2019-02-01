@@ -45,7 +45,10 @@ const component: ComponentOptions<IComponent> = {
         };
     },
     computed: {
-        ...mapGetters('note-contents', ['isBookContentsLoad']),
+        ...mapGetters('note-contents', [
+            'isBookContentsToggleAll',
+            'isBookContentsLoad'
+        ]),
         ...mapGetters(['isAppDrawerToggle'])
     },
     beforeRouteLeave(this: any, to, from, next) {
@@ -61,7 +64,10 @@ const component: ComponentOptions<IComponent> = {
         }
     },
     mounted(this: any) {
-        this.bookContentsToggleAll();
+        if ( this.isBookContentsToggleAll ) {
+            console.log( 'collapseall' );
+            this.bookContentsToggleAll();
+        }
     },
     methods: {
         ...mapActions('note-contents', [

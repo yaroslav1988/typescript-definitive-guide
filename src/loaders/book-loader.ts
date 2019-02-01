@@ -40,7 +40,6 @@ export const Loader = ((loader: ILoader) => (config: ILoaderConfig) => ({
             .then(response => response.json());
     },
     loadChapterByName(name: string) {
-        console.log(name, config.chapters);
         let url = `${config.chapters}/${name}.html`;
 
         return loader

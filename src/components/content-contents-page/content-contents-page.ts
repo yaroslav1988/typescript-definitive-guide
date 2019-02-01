@@ -33,7 +33,7 @@ const component: ComponentOptions<IComponent> = {
         console.log('update');
     },
     methods: {
-        ...mapActions([
+        ...mapActions('book-contents', [
             'bookContentsToggleAll',
             'bookContentsToggleByLevelAndIndex'
         ]),
