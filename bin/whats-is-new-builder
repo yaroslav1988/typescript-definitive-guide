@@ -6,8 +6,9 @@ if ( !NODE_ENV ) {
     throw new Error(`[builder WhatsIsNew] NODE_ENV must be "development" or "production", but not "${NODE_ENV}".`)
 }
 
-console.info( `> [book-builder env] ${ NODE_ENV }` );
+console.info( `> [WhatsIsNewBuilder env] ${ NODE_ENV }` );
 
 const { build } = require( '../index' );
 
-build();
+build()
+    .catch( console.error );
