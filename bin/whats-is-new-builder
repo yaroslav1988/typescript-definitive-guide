@@ -11,4 +11,4 @@ console.info( `> [WhatsIsNewBuilder env] ${ NODE_ENV }` );
 const { build } = require( '../index' );
 
 build()
-    .catch( console.error );
+    .catch( console.log );

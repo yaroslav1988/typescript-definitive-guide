@@ -137,7 +137,12 @@ const processor = unified()
     // .use( addIdToH2 )
     .use( html )
 
-console.log( ` > [meta PathToBookDir] ${ EnvUtils.getProp( 'path_to_book_dir' ) }` );
+
+if( EnvUtils.getProp( 'path_to_book_dir' ) === undefined ){
+    console.log( `> [meta PathToBookDir] Path to dir whats-is-new not must be undefined/` );
+}
+
+
 const PATH_TO_BOOK_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_book_dir' ) );
 const PATH_TO_INPUT_DIR = EnvUtils.getProp( 'path_to_dir_with_md' );
 const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_dir_with_temporary_html' ) );
@@ -156,12 +161,14 @@ const action = async () => {
         let customStatsAll = await Promise.all( pathAll.map( async fileOrDirPath => {
             let stats = await fs.promises.stat( PathUtils.toAbsolutePath( path.join( path.join( PATH_TO_INPUT_DIR, version ), fileOrDirPath ) ) );
 
+
             return ( {
                 name: fileOrDirPath,
                 isFile: stats.isFile(),
                 isDirectory: stats.isDirectory()
             } );
         } ) );
+
 
 
         let dirnameAll = customStatsAll

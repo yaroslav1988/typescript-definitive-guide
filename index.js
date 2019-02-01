@@ -5,14 +5,10 @@ const CreateBookContentsInfoAction = require( './whats-is-new-builder/actions/cr
 
 
 const build = async () => {
-    try {
-        await MdToHtmlAction.action();
-        await BuildPartIntoSingleFileAction.action();
-        await DeleteTemporaryDirectoryAction.action();
-        await CreateBookContentsInfoAction.action();
-    }catch(error){
-        throw error;
-    }
+    await MdToHtmlAction.action();
+    await BuildPartIntoSingleFileAction.action();
+    await DeleteTemporaryDirectoryAction.action();
+    await CreateBookContentsInfoAction.action();
 };
 
 

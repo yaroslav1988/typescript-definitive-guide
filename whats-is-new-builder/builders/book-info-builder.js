@@ -16,6 +16,9 @@ const NOTE_FILENAME = EnvUtils.getProp( 'note_filename' );
 async function build(){
     let versionAll = await FsUtils.readdir( PATH_TO_DIR_WITH_HTML );
 
+    versionAll = versionAll.filter( name => path.extname( name ) !== '.json' );
+
+
     let infoPromiseAll = versionAll.map( async version => {
         let noteBuffer = await FsUtils.readfile( path.join( PATH_TO_DIR_WITH_HTML, version, NOTE_FILENAME ) );
         let noteData = noteBuffer.toString();
