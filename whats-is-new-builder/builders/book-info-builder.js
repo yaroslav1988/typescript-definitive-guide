@@ -20,7 +20,12 @@ async function build(){
 
 
     let infoPromiseAll = versionAll.map( async version => {
-        let noteBuffer = await FsUtils.readfile( path.join( PATH_TO_DIR_WITH_HTML, version, NOTE_FILENAME ) );
+        const INPUT_FILENAME = PathUtils.toHTML(
+            TranslitUtils.translitRusToEng( version )
+        );
+
+
+        let noteBuffer = await FsUtils.readfile( path.join( PATH_TO_DIR_WITH_HTML, version, INPUT_FILENAME ) );
         let noteData = noteBuffer.toString();
 
         let chapterName = version;

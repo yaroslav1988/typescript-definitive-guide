@@ -16,7 +16,6 @@ const FsUtils = require( '../utils/fs' );
 
 // const PATH_TO_BOOK_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_book_dir' ) );
 // const PATH_TO_INPUT_DIR = EnvUtils.getProp( 'path_to_dir_with_md' );
-const NOTE_FILENAME = EnvUtils.getProp( 'note_filename' );
 const PATH_TO_INPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_dir_with_temporary_html' ) );
 const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_dir_with_html' ) );
 
@@ -90,10 +89,14 @@ const action = async () => {
         const VERSION_NORMALIZE = TranslitUtils.translitRusToEng( version );
 
         const OUTPUT_DIR_PATH = path.join( PATH_TO_OUTPUT_DIR, VERSION_NORMALIZE );
+        const OUTPUT_FILENAME = PathUtils.toHTML(
+            TranslitUtils.translitRusToEng( version )
+        );
+
 
 
         let resultPromiseAll = [
-            FsUtils.writefile( path.join( OUTPUT_DIR_PATH, NOTE_FILENAME ), resultHtmlData )
+            FsUtils.writefile( path.join( OUTPUT_DIR_PATH, OUTPUT_FILENAME ), resultHtmlData )
         ];
 
         if ( isImageExistsValid ) {
