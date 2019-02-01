@@ -14,10 +14,7 @@ function decorate(bookChapterInfoAll){
     return bookChapterInfoAll.map( bookChapterInfo => {
         let { chapterName, subchapterAll } = bookChapterInfo;
 
-        let pathEng = toEng(chapterName);
-        let path = new Array( 2 )
-            .fill( pathEng )
-            .join( '/' );
+        let path = chapterName;
 
 
         let children = subchapterAll.map( ({subchapterId, subchapterName}) => {

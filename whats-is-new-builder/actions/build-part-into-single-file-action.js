@@ -88,7 +88,7 @@ const action = async () => {
 
         const VERSION_NORMALIZE = TranslitUtils.translitRusToEng( version );
 
-        const OUTPUT_DIR_PATH = path.join( PATH_TO_OUTPUT_DIR, VERSION_NORMALIZE );
+        const OUTPUT_DIR_PATH = path.join( PATH_TO_OUTPUT_DIR );
         const OUTPUT_FILENAME = PathUtils.toHTML(
             TranslitUtils.translitRusToEng( version )
         );
@@ -102,7 +102,7 @@ const action = async () => {
         if ( isImageExistsValid ) {
             resultPromiseAll.push( copydir(
                 path.join(CURRENT_VERSION_DIR_PATH, IMAGES_DIRNAME),
-                path.join(OUTPUT_DIR_PATH, IMAGES_DIRNAME)
+                path.join(OUTPUT_DIR_PATH, IMAGES_DIRNAME, VERSION_NORMALIZE)
             ) );
         }
 

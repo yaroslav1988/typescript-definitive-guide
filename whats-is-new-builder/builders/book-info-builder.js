@@ -12,20 +12,20 @@ const PATH_TO_DIR_WITH_HTML = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_
 const PATH_TO_INPUT_FILE_WITH_BOOK_CONTENTS = PathUtils.toAbsolutePath(
     EnvUtils.getProp( 'path_to_input_file_with_book_contents' ) );
 const NOTE_FILENAME = EnvUtils.getProp( 'note_filename' );
+const IMAGES_DIRNAME = 'images';
 
 async function build(){
     let versionAll = await FsUtils.readdir( PATH_TO_DIR_WITH_HTML );
 
-    versionAll = versionAll.filter( name => path.extname( name ) !== '.json' );
+    versionAll = versionAll
+        .filter( name => path.extname( name ) !== '.json' && name !== IMAGES_DIRNAME );
 
 
     let infoPromiseAll = versionAll.map( async version => {
-        const INPUT_FILENAME = PathUtils.toHTML(
-            TranslitUtils.translitRusToEng( version )
-        );
+        console.log(path.join( PATH_TO_DIR_WITH_HTML, version ),version)
 
 
-        let noteBuffer = await FsUtils.readfile( path.join( PATH_TO_DIR_WITH_HTML, version, INPUT_FILENAME ) );
+        let noteBuffer = await FsUtils.readfile( path.join( PATH_TO_DIR_WITH_HTML, version ) );
         let noteData = noteBuffer.toString();
 
         let chapterName = version;
