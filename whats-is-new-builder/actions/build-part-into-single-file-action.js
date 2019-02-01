@@ -89,14 +89,12 @@ const action = async () => {
         const VERSION_NORMALIZE = TranslitUtils.translitRusToEng( version );
 
         const OUTPUT_DIR_PATH = path.join( PATH_TO_OUTPUT_DIR );
-        const OUTPUT_FILENAME = PathUtils.toHTML(
-            TranslitUtils.translitRusToEng( version )
-        );
+        const OUTPUT_FILENAME = TranslitUtils.translitRusToEng( version );
 
 
 
         let resultPromiseAll = [
-            FsUtils.writefile( path.join( OUTPUT_DIR_PATH, OUTPUT_FILENAME ), resultHtmlData )
+            FsUtils.writefile( path.join( OUTPUT_DIR_PATH, PathUtils.toHTML( OUTPUT_FILENAME ) ), resultHtmlData )
         ];
 
         if ( isImageExistsValid ) {

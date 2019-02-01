@@ -18,14 +18,12 @@ async function build(){
     let versionAll = await FsUtils.readdir( PATH_TO_DIR_WITH_HTML );
 
     versionAll = versionAll
-        .filter( name => path.extname( name ) !== '.json' && name !== IMAGES_DIRNAME );
+        .filter( name => path.extname( name ) !== '.json' && name !== IMAGES_DIRNAME )
+        .map( filename => filename.replace( path.extname( filename ), '' ) );
 
 
     let infoPromiseAll = versionAll.map( async version => {
-        console.log(path.join( PATH_TO_DIR_WITH_HTML, version ),version)
-
-
-        let noteBuffer = await FsUtils.readfile( path.join( PATH_TO_DIR_WITH_HTML, version ) );
+        let noteBuffer = await FsUtils.readfile( PathUtils.toHTML(path.join( PATH_TO_DIR_WITH_HTML, version )) );
         let noteData = noteBuffer.toString();
 
         let chapterName = version;
