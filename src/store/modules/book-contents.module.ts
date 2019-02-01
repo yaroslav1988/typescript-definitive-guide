@@ -280,8 +280,8 @@ export const moduleFactory: IBookContentsModuleFactory = loader => ({
 
             commit('setChapter', { chapter, chapterName });
         },
-        bookContentsToggleAll: ( { state, commit } ) => {
-            commit( 'toggleAll' );
+        bookContentsToggleAll: ({ state, commit }) => {
+            commit('toggleAll');
         },
         bookContentsToggleByLevelAndIndex: (
             { state, commit },
