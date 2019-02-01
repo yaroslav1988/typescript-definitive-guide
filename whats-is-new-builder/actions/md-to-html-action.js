@@ -137,7 +137,7 @@ const processor = unified()
     // .use( addIdToH2 )
     .use( html )
 
-
+console.log( ` > [meta PathToBookDir] ${ EnvUtils.getProp( 'path_to_book_dir' ) }` );
 const PATH_TO_BOOK_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_book_dir' ) );
 const PATH_TO_INPUT_DIR = EnvUtils.getProp( 'path_to_dir_with_md' );
 const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_dir_with_temporary_html' ) );
