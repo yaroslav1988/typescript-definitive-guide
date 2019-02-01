@@ -3,7 +3,7 @@
 const NODE_ENV = process.env.NODE_ENV;
 
 if ( !NODE_ENV ) {
-    throw new Error(`[book-builder] NODE_ENV must be "development" or "production", but not "${NODE_ENV}".`)
+    throw new Error(`[builder WhatsIsNew] NODE_ENV must be "development" or "production", but not "${NODE_ENV}".`)
 }
 
 console.info( `> [book-builder env] ${ NODE_ENV }` );
