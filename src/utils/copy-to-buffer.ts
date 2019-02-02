@@ -1,3 +1,5 @@
+
+
 export function copyToBuffer(text: string): void {
     const input: HTMLInputElement = document.createElement(
         'input'
@@ -14,4 +16,11 @@ export function copyToBuffer(text: string): void {
     document.body.removeChild(input);
 
     focus.focus();
+}
+
+type CopyToBuffer = typeof copyToBuffer;
+type CopyToBufferWrapper = ( text: string ) => ReturnType<CopyToBuffer>;
+
+export function copyToBufferWithPrefixDecorator(prefix:string): CopyToBufferWrapper {
+    return ( text: string ) => copyToBuffer( prefix + text );
 }
