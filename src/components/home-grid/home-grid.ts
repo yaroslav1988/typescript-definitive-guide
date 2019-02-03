@@ -13,8 +13,7 @@ export default {
     computed: {
         ...mapGetters(['isAppDrawerToggle', 'BASE_URL', 'ORIGIN'])
     },
-    created(this: any) {
-    },
+    created(this: any) {},
     methods: {
         readButton_click(this: any) {
             this.$router.push('/book/contents');

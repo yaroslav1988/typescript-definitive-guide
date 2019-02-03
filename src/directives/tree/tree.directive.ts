@@ -11,8 +11,7 @@ const directive: DirectiveOptions = {
             // position: 'absolute'
         });
     },
-    inserted(element: HTMLElement) {
-    },
+    inserted(element: HTMLElement) {},
     unbind(element: HTMLElement) {}
 };
 

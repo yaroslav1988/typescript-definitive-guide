@@ -8,7 +8,7 @@ import AutoFocusDirective from '@/directives/auto-focus/auto-focus.directive';
 import Vue from 'vue';
 
 export default {
-    name:'app-snackbar',
+    name: 'app-snackbar',
     // props: [],
     data() {
         return {
@@ -18,27 +18,22 @@ export default {
         };
     },
     computed: {
-        ...mapGetters([
-            'isShowAppSnackbar',
-            'messageAppSnackbar',
-        ])
+        ...mapGetters(['isShowAppSnackbar', 'messageAppSnackbar'])
     },
     // mounted () {
     //
     // },
     methods: {
-        ...mapActions([
-            'hideAppSnackbar',
-        ]),
+        ...mapActions(['hideAppSnackbar'])
     },
     watch: {
-        isShowAppSnackbar(this:any, isShowAppSnackbar:boolean){
-            if(isShowAppSnackbar!==this.isShow){
+        isShowAppSnackbar(this: any, isShowAppSnackbar: boolean) {
+            if (isShowAppSnackbar !== this.isShow) {
                 this.isShow = isShowAppSnackbar;
             }
         },
-        isShow(this:any, isShow:boolean){
-            if(isShow!==this.isShowAppSnackbar && !isShow){
+        isShow(this: any, isShow: boolean) {
+            if (isShow !== this.isShowAppSnackbar && !isShow) {
                 this.hideAppSnackbar();
             }
         }

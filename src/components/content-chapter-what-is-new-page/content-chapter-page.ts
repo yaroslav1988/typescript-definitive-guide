@@ -35,7 +35,6 @@ export default {
 
             let chapterRepoHref = `https://github.com/nauchikus/typescript-definitive-guide/tree/whats-is-new/notes/${chapterName}`;
 
-
             return chapterRepoHref;
         },
         drawerState(this: any) {

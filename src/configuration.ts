@@ -7,14 +7,11 @@ const {
     VUE_APP_NOTE_CHAPTERS_URL
 } = process.env;
 
-
 const messages = {
     COPY_LINK_TO_BUFFER: 'Ссылка скопирована в буффер обмена.'
 };
 
-const github = {
-
-};
+const github = {};
 
 export default {
     book: {

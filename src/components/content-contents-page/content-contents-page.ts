@@ -29,8 +29,7 @@ const component: ComponentOptions<IComponent> = {
     // mounted () {
     //
     // },
-    updated() {
-    },
+    updated() {},
     methods: {
         ...mapActions('book-contents', [
             'bookContentsToggleAll',

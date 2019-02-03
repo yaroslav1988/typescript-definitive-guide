@@ -27,16 +27,13 @@ const component: ComponentOptions<IComponent> = {
     //
     // },
     methods: {
-        ...mapActions([
-            'showAppSnackbar',
-            'copyToBuffer',
-        ]),
+        ...mapActions(['showAppSnackbar', 'copyToBuffer']),
         toggleCollapseContents(this: any) {
             this.$emit('collapse');
         },
         toBuffer(this: any, url: string) {
             copyToBuffer(url);
-            this.showAppSnackbar( AppConfig.messages.COPY_LINK_TO_BUFFER );
+            this.showAppSnackbar(AppConfig.messages.COPY_LINK_TO_BUFFER);
         }
     },
     watch: {
@@ -49,4 +46,3 @@ const component: ComponentOptions<IComponent> = {
 };
 
 export default component;
-

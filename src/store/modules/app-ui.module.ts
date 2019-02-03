@@ -11,7 +11,7 @@ interface ILocalState {
     };
     snackbar: {
         isShow: boolean;
-        message:string;
+        message: string;
     };
     /// todo [refactoring] make separate module for chapter-page
     book: {
@@ -83,10 +83,10 @@ export const module: Module<ILocalState, {}> = {
         drawer: {
             isToggle: false
         },
-        snackbar:{
-            isShow:false,
+        snackbar: {
+            isShow: false,
             message: ''
-        },
+        }
     },
     mutations: {
         toggleAuthorContactDialog: (state, isToggle: boolean) => {
@@ -131,14 +131,13 @@ export const module: Module<ILocalState, {}> = {
             state.book.popups.isReportAboutSyntaxErrorPopupShow = isToggle;
         },
 
-        showAppSnackbar(state, message:string){
+        showAppSnackbar(state, message: string) {
             state.snackbar.message = message;
             state.snackbar.isShow = true;
-
         },
-        hideAppSnackbar(state){
+        hideAppSnackbar(state) {
             state.snackbar.isShow = false;
-        },
+        }
     },
     actions: {
         showAuthorContactDialog: ({ commit }) => {
@@ -214,13 +213,12 @@ export const module: Module<ILocalState, {}> = {
             commit('reportAboutSyntaxErrorPopupToggle', false);
         },
 
-
-        showAppSnackbar({commit},message:string){
-            commit( 'showAppSnackbar', message );
+        showAppSnackbar({ commit }, message: string) {
+            commit('showAppSnackbar', message);
         },
-        hideAppSnackbar({commit}){
-            commit( 'hideAppSnackbar' );
-        },
+        hideAppSnackbar({ commit }) {
+            commit('hideAppSnackbar');
+        }
     },
     getters: {
         isAuthorContactDialogToggle: state =>

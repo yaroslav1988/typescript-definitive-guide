@@ -51,5 +51,5 @@ export default {
     ),
     appHeader: Vue.component('app-header', AppHeader),
     customDrawer: Vue.component('custom-drawer', CustomDrawer),
-    appSnackbar: Vue.component( 'app-snackbar', AppSnackbar ),
+    appSnackbar: Vue.component('app-snackbar', AppSnackbar)
 };

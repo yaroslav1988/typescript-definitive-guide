@@ -2,7 +2,6 @@ import { mapActions } from 'vuex';
 import { Collapses } from '../../enums/Collapses';
 import Vue, { ComponentOptions } from 'vue';
 
-
 /// TODO [refactoring] take code to initialization level
 import { copyToBufferWithPrefixDecorator } from '@/utils/copy-to-buffer';
 import { AppConfig } from '@/facade';
@@ -28,16 +27,13 @@ const component: ComponentOptions<IComponent> = {
     //
     // },
     methods: {
-        ...mapActions([
-            'showAppSnackbar',
-            'copyToBuffer',
-        ]),
+        ...mapActions(['showAppSnackbar', 'copyToBuffer']),
         toggleCollapseContents(this: any) {
             this.$emit('collapse');
         },
         toBuffer(this: any, url: string) {
             copyToBuffer(url);
-            this.showAppSnackbar( AppConfig.messages.COPY_LINK_TO_BUFFER );
+            this.showAppSnackbar(AppConfig.messages.COPY_LINK_TO_BUFFER);
         }
     },
     watch: {
