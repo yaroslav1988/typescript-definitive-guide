@@ -14,7 +14,7 @@ function decorate(bookChapterInfoAll){
     return bookChapterInfoAll.map( bookChapterInfo => {
         let { chapterName, subchapterAll } = bookChapterInfo;
 
-        let path = chapterName;
+        let path = TranslitUtils.translitRusToEng(chapterName);
 
 
         let children = subchapterAll.map( ({subchapterId, subchapterName}) => {

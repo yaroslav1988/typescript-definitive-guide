@@ -26,7 +26,9 @@ async function build(){
         let noteBuffer = await FsUtils.readfile( PathUtils.toHTML(path.join( PATH_TO_DIR_WITH_HTML, version )) );
         let noteData = noteBuffer.toString();
 
-        let chapterName = version;
+
+
+        let chapterName = version.replace(/-/g, '.');
         let subchapterAll = SubchapterParser.parse( noteData );
 
 
