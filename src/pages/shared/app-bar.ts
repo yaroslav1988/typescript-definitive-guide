@@ -6,6 +6,7 @@ import SpillingErrorFeedbackMenuItem from '../../components/spilling-error-feedb
 import SpillingErrorFeedbackMenuItemContent from '../../components/spilling-error-feedback-menu-item-content/SpillingErrorFeedbackMenuItemContent.vue';
 import AppBugFeedbackMenuItemContent from '../../components/app-bug-feedback-menu-item-content/AppBugFeedbackMenuItemContent.vue';
 import AppBugFeedbackMenuItem from '../../components/app-bug-feedback-menu-item/AppBugFeedbackMenuItem.vue';
+import AppSnackbar from '../../components/app-snackbar/AppSnackbar.vue';
 import AnimationSendingPromotion from '../../components/animation-sending-promotion/AnimationSendingPromotion.vue';
 import AppHeader from '../../components/app-header/AppHeader.vue';
 import CustomDrawer from '../../components/custom-drawer/CustomDrawer.vue';
@@ -49,5 +50,6 @@ export default {
         AnimationSendingPromotion
     ),
     appHeader: Vue.component('app-header', AppHeader),
-    customDrawer: Vue.component('custom-drawer', CustomDrawer)
+    customDrawer: Vue.component('custom-drawer', CustomDrawer),
+    appSnackbar: Vue.component( 'app-snackbar', AppSnackbar ),
 };

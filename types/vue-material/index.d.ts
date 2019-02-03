@@ -16,5 +16,6 @@ declare module "vue-material/dist/components" {
     export function MdDrawer(): void;
     export function MdProgress(): void;
     export function MdEmptyState(): void;
+    export function MdSnackbar(): void;
 
 }

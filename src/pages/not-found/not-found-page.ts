@@ -18,7 +18,6 @@ const component: ComponentOptions<IComponent> = {
         return {};
     },
     beforeRouteLeave(this: any, to, from, next) {
-        console.log('not-found leave ');
         this.showGlobalProgressBar();
 
         next();

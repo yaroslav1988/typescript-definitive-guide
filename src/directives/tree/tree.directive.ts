@@ -10,16 +10,8 @@ const directive: DirectiveOptions = {
             // margin: '8px 0',
             // position: 'absolute'
         });
-        console.log(
-            element.clientWidth,
-            element.parentElement && element.parentElement.clientWidth
-        );
     },
     inserted(element: HTMLElement) {
-        console.log(
-            element.clientWidth,
-            element.parentElement && element.parentElement.clientWidth
-        );
     },
     unbind(element: HTMLElement) {}
 };

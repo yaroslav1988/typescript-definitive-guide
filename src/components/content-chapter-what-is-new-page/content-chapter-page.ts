@@ -33,7 +33,8 @@ export default {
             } = this.$route;
             let chapterName = this.getChapterNameByChapterPath(chapterPath);
 
-            let chapterRepoHref = `https://github.com/nauchikus/typescript-definitive-guide/blob/master/chapters/${chapterName}.md`;
+            let chapterRepoHref = `https://github.com/nauchikus/typescript-definitive-guide/tree/whats-is-new/notes/${chapterName}`;
+
 
             return chapterRepoHref;
         },

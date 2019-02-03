@@ -9,6 +9,10 @@ interface ILocalState {
         scrollToElement: { elementId: string };
         scrollPosition: { x: number; y: number };
     };
+    snackbar: {
+        isShow: boolean;
+        message:string;
+    };
     /// todo [refactoring] make separate module for chapter-page
     book: {
         selection: {
@@ -78,7 +82,11 @@ export const module: Module<ILocalState, {}> = {
         },
         drawer: {
             isToggle: false
-        }
+        },
+        snackbar:{
+            isShow:false,
+            message: ''
+        },
     },
     mutations: {
         toggleAuthorContactDialog: (state, isToggle: boolean) => {
@@ -121,7 +129,16 @@ export const module: Module<ILocalState, {}> = {
         },
         reportAboutSyntaxErrorPopupToggle(state, isToggle: boolean) {
             state.book.popups.isReportAboutSyntaxErrorPopupShow = isToggle;
-        }
+        },
+
+        showAppSnackbar(state, message:string){
+            state.snackbar.message = message;
+            state.snackbar.isShow = true;
+
+        },
+        hideAppSnackbar(state){
+            state.snackbar.isShow = false;
+        },
     },
     actions: {
         showAuthorContactDialog: ({ commit }) => {
@@ -191,12 +208,19 @@ export const module: Module<ILocalState, {}> = {
             }
         },
         showReportAboutSyntaxErrorPopup({ commit }) {
-            console.log('OPEN');
             commit('reportAboutSyntaxErrorPopupToggle', true);
         },
         hideReportAboutSyntaxErrorPopup({ commit }) {
             commit('reportAboutSyntaxErrorPopupToggle', false);
-        }
+        },
+
+
+        showAppSnackbar({commit},message:string){
+            commit( 'showAppSnackbar', message );
+        },
+        hideAppSnackbar({commit}){
+            commit( 'hideAppSnackbar' );
+        },
     },
     getters: {
         isAuthorContactDialogToggle: state =>
@@ -219,6 +243,9 @@ export const module: Module<ILocalState, {}> = {
         bookChapterTextSelectionPosition: state =>
             state.book.selection.selection.position,
         isReportAboutSyntaxErrorPopupShow: state =>
-            state.book.popups.isReportAboutSyntaxErrorPopupShow
+            state.book.popups.isReportAboutSyntaxErrorPopupShow,
+
+        isShowAppSnackbar: state => state.snackbar.isShow,
+        messageAppSnackbar: state => state.snackbar.message
     }
 };

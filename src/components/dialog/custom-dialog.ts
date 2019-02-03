@@ -22,7 +22,6 @@ export default {
     // },
     methods: {
         log() {
-            console.log('DOWN');
         },
         hideDialog(this: any) {
             this.isDialogToggle = false;

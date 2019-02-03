@@ -30,7 +30,6 @@ const component: ComponentOptions<IComponent> = {
     //
     // },
     updated() {
-        console.log('update');
     },
     methods: {
         ...mapActions('book-contents', [

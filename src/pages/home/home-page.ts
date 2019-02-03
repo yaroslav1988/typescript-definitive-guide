@@ -19,7 +19,6 @@ const component: ComponentOptions<IComponent> = {
     //     return {};
     // },
     beforeRouteEnter(t, f, n) {
-        console.log('home enter');
         n();
     },
     beforeRouteLeave(this: any, to, from, next) {

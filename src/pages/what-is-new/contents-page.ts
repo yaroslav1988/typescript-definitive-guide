@@ -65,7 +65,6 @@ const component: ComponentOptions<IComponent> = {
     },
     mounted(this: any) {
         if (this.isBookContentsToggleAll) {
-            console.log('collapseall');
             this.bookContentsToggleAll();
         }
     },

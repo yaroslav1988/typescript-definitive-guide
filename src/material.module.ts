@@ -16,7 +16,8 @@ import {
     MdSteppers,
     MdSubheader,
     MdToolbar,
-    MdTooltip
+    MdTooltip,
+    MdSnackbar,
 } from 'vue-material/dist/components';
 import 'vue-material/dist/vue-material.min.css';
 import 'vue-material/dist/theme/default.css';
@@ -38,3 +39,4 @@ Vue.use(MdField);
 Vue.use(MdDrawer);
 Vue.use(MdProgress);
 Vue.use(MdEmptyState);
+Vue.use(MdSnackbar);
