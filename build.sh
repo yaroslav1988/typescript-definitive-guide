@@ -14,5 +14,6 @@ git clone --depth=1 --branch=gh-pages   https://${GITHUB_TOKEN}@github.com/$TRAV
 
 #copy book
 cp -rf $WORKING_DIR/app/book $WORKING_DIR/dist
+cp -rf $WORKING_DIR/app/whats-is-new $WORKING_DIR/dist
 
 echo "\033[46m [app build] complete"
