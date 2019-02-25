@@ -18,8 +18,6 @@ export default {
             'isBookNextChapter',
             'isBookPrevChapter',
 
-
-
             'getChapterNameByChapterPath'
         ]),
         ...mapGetters([
