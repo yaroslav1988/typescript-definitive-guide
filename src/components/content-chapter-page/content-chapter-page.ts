@@ -18,11 +18,12 @@ export default {
             'isBookNextChapter',
             'isBookPrevChapter',
 
-            'bookChapterTextSelectionPosition',
+
 
             'getChapterNameByChapterPath'
         ]),
         ...mapGetters([
+            'bookChapterTextSelectionPosition',
             'isBookChapterTextSelected',
             'isAppDrawerToggle',
             'scrollToElementWithId'
