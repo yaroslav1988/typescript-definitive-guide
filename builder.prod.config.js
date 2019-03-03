@@ -1,4 +1,5 @@
 module.exports = {
+    origin: 'https://nauchikus.github.io/typescript-definitive-guide',
     fromDomain: 'http://192.168.0.226:1234',
     toDomain: 'http://example.ru',
     chapterBaseUrl: 'book/contents/',

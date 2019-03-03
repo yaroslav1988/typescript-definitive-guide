@@ -1,5 +1,5 @@
 const TranslitUtils = require( '../utils/translit-rus-to-eng' );
-const { PREFIX_PATH } = require( '../config' );
+const { PREFIX_PATH, APP_ORIGIN } = require( '../config' );
 
 
 function format(html){
@@ -14,7 +14,14 @@ function format(html){
 
 
             let href = externalResourceHref || `/book/contents/${pathEng}`;
-            let template = `<a class="book__chapter__chapter-link" href="${href}" title="${content}">${content}</a>`
+
+            if ( href.startsWith( APP_ORIGIN ) ) {
+                return `<a class="book__chapter__chapter-link" href="${href}" title="${content}" target="_blank">${content}</a>`;
+            }
+
+
+
+            let template = `<a class="book__chapter__chapter-link" href="${href}" title="${content}">${content}</a>`;
 
             return template;
         })

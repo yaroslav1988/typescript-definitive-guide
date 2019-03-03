@@ -27,11 +27,13 @@ const BOOK_CONFIG = require( RELATIVE_PATH_TO_CONFIG );
 
 
 const PREFIX_PATH = NODE_ENV === 'production' ? BOOK_CONFIG.prodAssetsLinkPrefix : '';
+const APP_ORIGIN = BOOK_CONFIG.origin;
 
 
 
 
 module.exports = {
     PREFIX_PATH,
-    BOOK_CONFIG
+    BOOK_CONFIG,
+    APP_ORIGIN
 };
