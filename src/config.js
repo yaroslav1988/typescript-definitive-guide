@@ -15,7 +15,7 @@ const getDefaultConfig = env => process.env[ `npm_package_config_config${ isProd
 
 
 const PATH_TO_CONFIG = args.config || getDefaultConfig( process.env );
-const RELATIVE_PATH_TO_CONFIG = path.relative( './bin', PATH_TO_CONFIG );
+const RELATIVE_PATH_TO_CONFIG = path.relative( './src', PATH_TO_CONFIG );
 
 
 const BOOK_CONFIG = require( RELATIVE_PATH_TO_CONFIG );
