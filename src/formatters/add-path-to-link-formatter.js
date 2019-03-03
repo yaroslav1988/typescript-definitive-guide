@@ -6,11 +6,15 @@ function format(html){
     return html
         .replace( /<a.*?\/a>/g, matches => {
             let [link] = matches.match( /<a.*?>(?:[“|”|"|']?)(.*?)(?:[“|”|"|']?)<\/a>/g );
+            let [ , externalResourceHref ] = link.match( /href="(.*?)"/ );
+
             let [ , content ] = link.match( />[“|”|"|']?(.*?)[“|”|"|']?</ );
             let path = content.replace( /\\/, ' и ' );
             let pathEng = TranslitUtils.translitRusToEng( content );
 
-            let template = `<a class="book__chapter__chapter-link" href="/book/contents/${pathEng}" title="${content}">${content}</a>`
+
+            let href = externalResourceHref || `/book/contents/${pathEng}`;
+            let template = `<a class="book__chapter__chapter-link" href="${href}" title="${content}">${content}</a>`
 
             return template;
         })

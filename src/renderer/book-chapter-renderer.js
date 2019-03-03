@@ -1,26 +1,23 @@
 const fs = require( 'fs' );
 const path = require( 'path' );
 
-const EnvUtils = require( '../utils/env-utils' );
 const PathUtils = require( '../utils/path-utils' );
 
 const PrePugEngine = require( '../utils/pre-pug-engine' );
 
+const { BOOK_CONFIG } = require( '../config' );
+
+const {
+    pathToInputPugFileWithBookChapter: PATH_TO_INPUT_PUG_FILE_WITH_BOOK_CHAPTER,
+    pathToOutputPugFileWithBookChapter: PATH_TO_OUTPUT_PUG_FILE_WITH_BOOK_CHAPTER,
+    pathToDirWithHtml,
+    bookChapterContentExtension: BOOK_CHAPTER_CONTENT_EXTENSION,
+    bookChapterPageExtension: BOOK_CHAPTER_PAGE_EXTENSION
+} = BOOK_CONFIG;
 
 
-const PATH_TO_INPUT_PUG_FILE_WITH_BOOK_CHAPTER = PathUtils.toAbsolutePath(
-    EnvUtils.getProp( 'path_to_input_pug_file_with_book_chapter' )
-);
-const PATH_TO_OUTPUT_PUG_FILE_WITH_BOOK_CHAPTER = PathUtils.toAbsolutePath(
-    EnvUtils.getProp( 'path_to_output_pug_file_with_book_chapter' )
-);
+const PATH_TO_DIR_WITH_HTML = PathUtils.toAbsolutePath( pathToDirWithHtml );
 
-const PATH_TO_DIR_WITH_HTML = PathUtils.toAbsolutePath(
-    EnvUtils.getProp( 'path_to_dir_with_html' )
-);
-
-const BOOK_CHAPTER_CONTENT_EXTENSION = EnvUtils.getProp( 'book_chapter_content_extension' );
-const BOOK_CHAPTER_PAGE_EXTENSION = EnvUtils.getProp( 'book_chapter_page_extension' );
 
 
 async function render(bookPageInfoAll){

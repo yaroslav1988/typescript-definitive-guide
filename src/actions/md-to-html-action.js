@@ -6,7 +6,6 @@ const markdown = require( 'remark-parse' );
 const html = require( 'remark-html' );
 const highlight = require( 'remark-highlight.js' );
 
-const EnvUtils = require( '../utils/env-utils' );
 const TranslitUtils = require( '../utils/translit-rus-to-eng' );
 const PathUtils = require( '../utils/path-utils' );
 const compose = require( '../utils/compose' );
@@ -19,6 +18,8 @@ const AddPathToLinkFormatter = require( '../formatters/add-path-to-link-formatte
 const ImageLinkFormatter = require( '../formatters/image-link-formatter' );
 
 /* ---------- */
+
+const { BOOK_CONFIG } = require( '../config' );
 
 function addClassToInlineCode () {
     return function ( node, file ) {
@@ -134,9 +135,7 @@ const processor = unified()
     .use( html )
 
 
-const PATH_TO_BOOK_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_book_dir' ) );
-const PATH_TO_INPUT_DIR = EnvUtils.getProp( 'path_to_dir_with_md' );
-const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( EnvUtils.getProp( 'path_to_dir_with_html' ) );
+
 
 
 const readFile = filepath => fs.promises.readFile( filepath );
@@ -160,6 +159,15 @@ const createDirectoryIfItDoesNotExist = dirpath => fs.promises.mkdir( dirpath, {
 
 
 const action = async () => {
+    let {
+        pathToBookDir,
+        pathToDirWithMd: PATH_TO_INPUT_DIR,
+        pathToDirWithHtml } = BOOK_CONFIG;
+
+    const PATH_TO_BOOK_DIR = PathUtils.toAbsolutePath( pathToBookDir );
+    const PATH_TO_OUTPUT_DIR = PathUtils.toAbsolutePath( pathToDirWithHtml );
+
+
     let filenameAll = await fs.promises.readdir( PathUtils.toAbsolutePath( PATH_TO_INPUT_DIR ) )
 
     await createDirectoryIfItDoesNotExist( PATH_TO_BOOK_DIR );

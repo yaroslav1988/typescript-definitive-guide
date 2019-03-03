@@ -1,14 +1,13 @@
 const path = require( 'path' );
 const fs = require( 'fs' );
 
-const EnvUtils = require( '../utils/env-utils' );
-
 const ROOT_PATH = process.cwd();
 
 const SITEMAP_PATH = path.join( ROOT_PATH, 'public', 'sitemap.xml' );
 
-const FROM_DOMAIN = EnvUtils.getProp( 'fromDomain' );
-const TO_DOMAIN = EnvUtils.getProp( 'toDomain' );
+const { BOOK_CONFIG } = require( '../config' );
+
+const {fromDomain:FROM_DOMAIN,toDomain:TO_DOMAIN}=BOOK_CONFIG
 
 
 if ( !FROM_DOMAIN || FROM_DOMAIN === '' && !TO_DOMAIN || TO_DOMAIN === '' ) {

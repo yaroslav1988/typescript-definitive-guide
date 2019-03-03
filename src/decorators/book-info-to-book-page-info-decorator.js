@@ -1,7 +1,8 @@
-const EnvUtils = require( '../utils/env-utils' );
 const TranslitUtils = require( '../utils/translit-rus-to-eng' );
 
-const BOOK_CHAPTER_CONTENT_EXTENSION = EnvUtils.getProp( 'book_chapter_content_extension' );
+const { BOOK_CONFIG } = require( '../config' );
+
+const { bookChapterContentExtension: BOOK_CHAPTER_CONTENT_EXTENSION } = BOOK_CONFIG;
 
 
 function decorate(bookChapterInfoAll){

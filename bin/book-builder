@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+const path = require( 'path' );
+
 const NODE_ENV = process.env.NODE_ENV;
 
 if ( !NODE_ENV ) {
@@ -8,6 +10,7 @@ if ( !NODE_ENV ) {
 
 console.info( `> [book-builder env] ${ NODE_ENV }` );
 
-const { build } = require( '../index' );
 
-build();
+const { run } = require( '../index' );
+
+run().catch(console.error);

@@ -1,0 +1,34 @@
+const path = require( 'path' );
+
+const NODE_ENV = process.env.NODE_ENV;
+// get builder config
+
+const [ , , ...argv] = process.argv;
+const args = argv.reduce((result, current)=> {
+    let [ , key, value] = current.match(/--(.*?)=(.*)/);
+
+    return Object.assign(result,{[key]: value});
+}, {});
+
+const isProd = env => env === 'production';
+const getDefaultConfig = env => process.env[ `npm_package_config_config${ isProd( NODE_ENV ) ? 'Prod' : 'Dev' }` ];
+
+
+const PATH_TO_CONFIG = args.config || getDefaultConfig( process.env );
+const RELATIVE_PATH_TO_CONFIG = path.relative( './bin', PATH_TO_CONFIG );
+
+
+const BOOK_CONFIG = require( RELATIVE_PATH_TO_CONFIG );
+
+// ==================
+
+
+const PREFIX_PATH = NODE_ENV === 'production' ? BOOK_CONFIG.prodAssetsLinkPrefix : '';
+
+
+
+
+module.exports = {
+    PREFIX_PATH,
+    BOOK_CONFIG
+};

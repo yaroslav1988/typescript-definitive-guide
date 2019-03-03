@@ -1,20 +1,23 @@
 const fs = require( 'fs' );
 
-const EnvUtils = require( '../utils/env-utils' );
 const PathUtils = require( '../utils/path-utils' );
 
 const BookInfoBuilder = require( '../builders/book-info-builder' );
 const BookInfoToBookPageInfoDecorator = require( '../decorators/book-info-to-book-page-info-decorator' );
 
-const PATH_TO_BOOK_DIR = EnvUtils.getProp( 'path_to_book_dir' );
-const PATH_TO_BOOK_CONTENTS_DIR = EnvUtils.getProp( 'path_to_book_contents_dir' );
-const PATH_TO_DIR_WITH_HTML = EnvUtils.getProp( 'path_to_dir_with_html' );
-const PATH_TO_OUTPUT_FILE_WITH_BOOK_CONTENTS = PathUtils.toAbsolutePath(
-    EnvUtils.getProp( 'path_to_output_file_with_book_contents' )
-);
+const { BOOK_CONFIG } = require( '../config' );
 
 
 const action = async () => {
+    const {
+        pathToBookContentsDir: PATH_TO_BOOK_CONTENTS_DIR,
+        pathToDirWithHtml: PATH_TO_DIR_WITH_HTML,
+        pathToOutputFileWithBookContents
+    } = BOOK_CONFIG;
+
+    const PATH_TO_OUTPUT_FILE_WITH_BOOK_CONTENTS = PathUtils.toAbsolutePath(pathToOutputFileWithBookContents);
+
+
     let bookContentsInfo = await BookInfoBuilder.build( PathUtils.toAbsolutePath( PATH_TO_DIR_WITH_HTML ) );
 
     let bookPageInfo = await BookInfoToBookPageInfoDecorator.decorate( bookContentsInfo );

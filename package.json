@@ -10,17 +10,19 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "book-builder": "bin/book-builder"
+    "src": "bin/book-builder"
   },
   "scripts": {
+    "postinstall": "npm run update-content",
+    "prestart@@": "env NODE_ENV=development npm run book:build",
+    "update-content": "./update-content.sh",
     "sitemap-replace-domain": "node ./book-builder/actions/replace-domain-in-sitemmap-action.js",
-    "prestart": "env NODE_ENV=development npm run book:build",
     "create-book-contents-info-action": "node ./book-builder/actions/create-book-contents-info-action.js",
     "clear-old-build": "node book-builder/actions/clear-old-build.js",
     "md-to-html-action": "node ./book-builder/actions/md-to-html-action.js",
     "format-html-action": "node ./book-builder/actions/format-html-action.js",
     "scripts": "ntl",
-    "start": "cross-env NODE_ENV=development",
+    "start": "cross-env NODE_ENV=development ./bin/book-builder",
     "build": "node ./bin/book-builder",
     "update": "npm i -D npm-upgrade && npm-upgrade"
   },
@@ -36,21 +38,8 @@
     "cz-customizable": {
       "config": "config/git/commitizen.js"
     },
-    "fromDomain": "http://192.168.0.226:1234",
-    "toDomain": "http://example.ru",
-    "chapter_base_url": "book/contents/",
-    "path_to_dir_with_md": "chapters",
-    "path_to_input_file_with_book_contents": "contents.md",
-    "path_to_output_file_with_book_contents": "dest/book/contents.json",
-    "path_to_dir_with_html": "dest/book/chapters",
-    "path_to_book_dir": "dest/book",
-    "path_to_book_chapters_dir": "dest/book/chapters",
-    "path_to_book_contents_dir": "dest/book",
-    "book_chapter_content_extension": ".html",
-    "prod_assets_link_prefix": "/typescript-definitive-guide",
-    "clear_before_build_path_all": [
-      "dest/book/**/*.*"
-    ]
+    "configProd": "./builder.prod.config.js",
+    "configDev": "./builder.dev.config.js"
   },
   "dependencies": {
     "cross-env": "^5.2.0",

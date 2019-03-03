@@ -2,16 +2,15 @@ const fs = require( 'fs' );
 
 const textract = require( 'textract' );
 
-const EnvUtils = require( '../utils/env-utils' );
 const PathUtils = require( '../utils/path-utils' );
 const OperatorUtils = require( '../utils/operator-utils' );
 
-
-
-const PATH_TO_DIR_WITH_DOCX_FILES = EnvUtils.getProp('path_to_dir_with_docx');
-const PATH_TO_DIR_WITH_MD_FILES = EnvUtils.getProp('path_to_dir_with_md');
-
-const DOCX_EXCLUDE_FILES = EnvUtils.getArray('docx_exclude_all');
+const {BOOK_CONFIG}=require('../config')
+const {
+    pathToDirWithDocx:PATH_TO_DIR_WITH_DOCX_FILES,
+    pathToDirWithMd:PATH_TO_DIR_WITH_MD_FILES,
+    docxExcludeAll:DOCX_EXCLUDE_FILES
+}=BOOK_CONFIG
 
 
 
