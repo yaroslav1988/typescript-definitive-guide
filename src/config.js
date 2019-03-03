@@ -11,7 +11,7 @@ const args = argv.reduce((result, current)=> {
 }, {});
 
 const isProd = env => env === 'production';
-const getDefaultConfig = () => process.env[ `npm_package_config_config${ isProd( NODE_ENV ) ? 'Prod' : 'Dev' }` ];
+const getDefaultConfig = () => isProd( NODE_ENV ) ? './builder.prod.config.js' : './builder.dev.config.js';
 
 
 console.log('args.config',process.env )
