@@ -13,7 +13,7 @@
             <div class="book__content"
                  v-html="bookCurrentChapterContent"
                  v-selection.include="{ selected: bookChapterTextSelected, unselected: bookChapterTextUnselected, id: SelectionExcludes.ReportAboutSyntaxError }"
-                 @click.prevent="bookContent_click"
+                 @click="bookContent_click"
                  ref="bookChapterContentRef"></div>
         </div>
         <div class="book-content-grid-item__right-control">

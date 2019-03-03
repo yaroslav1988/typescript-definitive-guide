@@ -64,10 +64,9 @@ export default {
             let a = target as HTMLLinkElement;
             let href = a.href;
 
-            let isExternalSourceHref = RouterUtils.isExternalSourceHref( href );
+            let isExternalSourceHref = RouterUtils.isExternalSourceHref(href);
 
-
-            if ( !isExternalSourceHref ) {
+            if (!isExternalSourceHref) {
                 event.preventDefault();
 
                 let path = href.replace(window.location.origin, '');
