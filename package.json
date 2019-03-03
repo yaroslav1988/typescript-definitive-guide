@@ -10,13 +10,13 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "book-build": "bin/book-builder"
+    "book-builder": "bin/book-builder"
   },
   "scripts": {
     "postinstall": "npm run update-content",
     "prestart@@": "env NODE_ENV=development npm run book:build",
     "update-content": "./update-content.sh",
-    "sitemap-replace-domain": "node ./src/actions/replace-domain-in-sitemmap-action.js",
+    "sitemap-replace-domain": "nodge ./src/actions/replace-domain-in-sitemmap-action.js",
     "create-book-contents-info-action": "node ./src/actions/create-book-contents-info-action.js",
     "clear-old-build": "node src/actions/clear-old-build.js",
     "md-to-html-action": "node ./src/actions/md-to-html-action.js",
