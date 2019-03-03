@@ -11,10 +11,11 @@ const args = argv.reduce((result, current)=> {
 }, {});
 
 const isProd = env => env === 'production';
-const getDefaultConfig = env => process.env[ `npm_package_config_config${ isProd( NODE_ENV ) ? 'Prod' : 'Dev' }` ];
+const getDefaultConfig = () => process.env[ `npm_package_config_config${ isProd( NODE_ENV ) ? 'Prod' : 'Dev' }` ];
 
 
-const PATH_TO_CONFIG = args.config || getDefaultConfig( process.env );
+const PATH_TO_CONFIG = args.config || getDefaultConfig(  );
+console.log(PATH_TO_CONFIG,NODE_ENV)
 const RELATIVE_PATH_TO_CONFIG = path.relative( './src', PATH_TO_CONFIG );
 
 
