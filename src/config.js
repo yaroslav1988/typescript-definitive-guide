@@ -14,7 +14,7 @@ const isProd = env => env === 'production';
 const getDefaultConfig = () => process.env[ `npm_package_config_config${ isProd( NODE_ENV ) ? 'Prod' : 'Dev' }` ];
 
 
-console.log('args.config',args.config)
+console.log('args.config',process.env )
 const PATH_TO_CONFIG = args.config || getDefaultConfig(  );
 const RELATIVE_PATH_TO_CONFIG = path.relative( './src', PATH_TO_CONFIG );
 
