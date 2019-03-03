@@ -10,11 +10,13 @@ const args = argv.reduce((result, current)=> {
     return Object.assign(result,{[key]: value});
 }, {});
 
+const DEFAUIL_PROD_BUILDER_CONFIG = './builder.prod.config.js';
+const DEFAUIL_DEV_BUILDER_CONFIG = './builder.dev.config.js';
+
 const isProd = env => env === 'production';
-const getDefaultConfig = () => isProd( NODE_ENV ) ? './builder.prod.config.js' : './builder.dev.config.js';
+const getDefaultConfig = () => isProd( NODE_ENV ) ? DEFAUIL_PROD_BUILDER_CONFIG : DEFAUIL_DEV_BUILDER_CONFIG;
 
 
-console.log('args.config',process.env )
 const PATH_TO_CONFIG = args.config || getDefaultConfig(  );
 const RELATIVE_PATH_TO_CONFIG = path.relative( './src', PATH_TO_CONFIG );
 
