@@ -1,5 +1,6 @@
 import { mapActions, mapGetters } from 'vuex';
 import { SelectionExcludes } from '../../enums/SelectionExcludes';
+import * as RouterUtils from '../../utils/router.utils';
 
 export default {
     props: {
@@ -63,9 +64,16 @@ export default {
             let a = target as HTMLLinkElement;
             let href = a.href;
 
-            let path = href.replace(window.location.origin, '');
+            let isExternalSourceHref = RouterUtils.isExternalSourceHref( href );
 
-            this.$router.push(path);
+
+            if ( !isExternalSourceHref ) {
+                event.preventDefault();
+
+                let path = href.replace(window.location.origin, '');
+
+                this.$router.push(path);
+            }
         },
         bookNextChapter(this: any) {
             let { subchapter } = this.$route.params;

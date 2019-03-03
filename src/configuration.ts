@@ -1,4 +1,6 @@
 const {
+    VUE_APP_ORIGIN,
+
     VUE_APP_BOOK_CONTENTS_URL,
     VUE_APP_BOOK_CHAPTERS_URL,
     VUE_APP_BOOK_CONTENT_BASE_URL,
@@ -14,6 +16,9 @@ const messages = {
 const github = {};
 
 export default {
+    app: {
+        origin: VUE_APP_ORIGIN
+    },
     book: {
         contents: VUE_APP_BOOK_CONTENTS_URL,
         chapters: VUE_APP_BOOK_CHAPTERS_URL,

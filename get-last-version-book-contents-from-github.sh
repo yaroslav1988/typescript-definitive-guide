@@ -1,10 +1,17 @@
 #!/bin/bash
 
-
-if [ -d ./public/book ] && [ -d ./public/whats-is-new ]; then
-echo "> contents is exists"
-exit 0
+if [ -d ./public/book ]; then
+rm -rf public/book
 fi
+
+if [ -d ./public/whats-is-new ]; then
+rm -rf public/whats-is-new
+fi
+
+#if [ -d ./public/book ] && [ -d ./public/whats-is-new ]; then
+#echo "> contents is exists"
+#exit 0
+#fi
 
 git clone --branch=gh-pages git@github.com:nauchikus/typescript-definitive-guide.git temporary
 
