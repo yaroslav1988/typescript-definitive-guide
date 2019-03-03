@@ -1,5 +1,5 @@
 const {
-    VUE_APP_ORIGIN,
+    VUE_APP_REAL_ORIGIN,
 
     VUE_APP_BOOK_CONTENTS_URL,
     VUE_APP_BOOK_CHAPTERS_URL,
@@ -17,7 +17,7 @@ const github = {};
 
 export default {
     app: {
-        origin: VUE_APP_ORIGIN
+        origin: VUE_APP_REAL_ORIGIN
     },
     book: {
         contents: VUE_APP_BOOK_CONTENTS_URL,
