@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "bin": {
-    "src": "bin/book-builder"
+    "book-build": "bin/book-builder"
   },
   "scripts": {
     "postinstall": "npm run update-content",
