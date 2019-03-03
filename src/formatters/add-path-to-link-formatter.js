@@ -15,7 +15,7 @@ function format(html){
 
             let href = externalResourceHref || `/book/contents/${pathEng}`;
 
-            if ( href.startsWith( APP_ORIGIN ) ) {
+            if ( !href.startsWith( APP_ORIGIN ) || ! href.startsWith('/book/')) {
                 return `<a class="book__chapter__chapter-link" href="${href}" title="${content}" target="_blank">${content}</a>`;
             }
 
