@@ -1,6 +1,13 @@
 import { mapActions, mapGetters } from 'vuex';
 import { SelectionExcludes } from '../../enums/SelectionExcludes';
 import * as RouterUtils from '../../utils/router.utils';
+import { copyToBufferWithPrefixDecorator } from '@/utils/copy-to-buffer';
+import { AppConfig } from '@/facade';
+
+/// TODO [refactoring] take code to initialization level
+const copyToBuffer = copyToBufferWithPrefixDecorator(
+    AppConfig.book.content + '/'
+);
 
 export default {
     props: {
@@ -52,12 +59,23 @@ export default {
             'bookChapterTextSelected',
             'bookChapterTextUnselected',
             'showReportAboutSyntaxErrorPopup',
-            'hideReportAboutSyntaxErrorPopup'
+            'hideReportAboutSyntaxErrorPopup',
+            'showAppSnackbar',
         ]),
+        toBuffer(this: any, url: string) {
+            copyToBuffer(url);
+            this.showAppSnackbar(AppConfig.messages.COPY_LINK_TO_BUFFER);
+        },
         bookContent_click(this: any, event: MouseEvent) {
             let target = event.target as Node;
-            
-            console.log(target);
+
+
+            if ( ( target as HTMLElement ).tagName === 'BUTTON' && ( target as HTMLElement ).classList.contains( 'copy-to-buffer' ) ) {
+                let url = ( target as HTMLElement ).getAttribute( 'data' );
+                let { chapter } = this.$route.params;
+
+                this.toBuffer( `${chapter}/${url}` );
+            }
 
             if ((target as HTMLElement).tagName !== 'A') {
                 return;
