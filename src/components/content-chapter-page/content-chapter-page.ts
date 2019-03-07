@@ -60,7 +60,7 @@ export default {
             'bookChapterTextUnselected',
             'showReportAboutSyntaxErrorPopup',
             'hideReportAboutSyntaxErrorPopup',
-            'showAppSnackbar',
+            'showAppSnackbar'
         ]),
         toBuffer(this: any, url: string) {
             copyToBuffer(url);
@@ -69,12 +69,14 @@ export default {
         bookContent_click(this: any, event: MouseEvent) {
             let target = event.target as Node;
 
-
-            if ( ( target as HTMLElement ).tagName === 'BUTTON' && ( target as HTMLElement ).classList.contains( 'copy-to-buffer' ) ) {
-                let url = ( target as HTMLElement ).getAttribute( 'data' );
+            if (
+                (target as HTMLElement).tagName === 'BUTTON' &&
+                (target as HTMLElement).classList.contains('copy-to-buffer')
+            ) {
+                let url = (target as HTMLElement).getAttribute('data');
                 let { chapter } = this.$route.params;
 
-                this.toBuffer( `${chapter}/${url}` );
+                this.toBuffer(`${chapter}/${url}`);
             }
 
             if ((target as HTMLElement).tagName !== 'A') {
