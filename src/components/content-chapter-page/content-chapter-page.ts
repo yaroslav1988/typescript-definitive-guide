@@ -56,6 +56,8 @@ export default {
         ]),
         bookContent_click(this: any, event: MouseEvent) {
             let target = event.target as Node;
+            
+            console.log(target);
 
             if ((target as HTMLElement).tagName !== 'A') {
                 return;
