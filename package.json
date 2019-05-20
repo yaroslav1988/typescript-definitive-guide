@@ -16,8 +16,8 @@
     },
     "husky": {
         "hooks": {
-            "pre-push": "npm run prettier",
-            "commit-msg": "npm run prettier && commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
+            "pre-commit": "npm run prettier",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS -g './config/git/commitlint.js'"
         }
     },
     "config": {

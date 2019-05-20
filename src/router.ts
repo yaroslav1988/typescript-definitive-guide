@@ -19,14 +19,18 @@ export const create = (store: Store<{}>) => {
 
                 name: 'home',
                 component: () =>
-                    import(/* webpackChunkName: "home" */ './pages/home/HomePage.vue')
+                    import(
+                        /* webpackChunkName: "home" */ './pages/home/HomePage.vue'
+                    )
             },
             {
                 path: '/whats-is-new',
 
                 name: 'whats-is-new',
                 component: () =>
-                    import(/* webpackChunkName: "what-is-new" */ './pages/what-is-new/WhatIsNewPage.vue')
+                    import(
+                        /* webpackChunkName: "what-is-new" */ './pages/what-is-new/WhatIsNewPage.vue'
+                    )
                 // beforeEnter: async (to, from, next) => {
                 //     let isEnterToApp = from.name === null;
                 //
@@ -52,7 +56,9 @@ export const create = (store: Store<{}>) => {
                 path: '/whats-is-new/:chapter/:subchapter?',
                 name: 'note',
                 component: () =>
-                    import(/* webpackChunkName: "chapter" */ './pages/note/ChapterPage.vue'),
+                    import(
+                        /* webpackChunkName: "chapter" */ './pages/note/ChapterPage.vue'
+                    ),
                 beforeEnter: async (to, from, next) => {
                     let isEnterToApp = from.name === null;
 
@@ -83,13 +89,17 @@ export const create = (store: Store<{}>) => {
                 path: '/book/contents',
                 name: 'contents',
                 component: () =>
-                    import(/* webpackChunkName: "contents" */ './pages/contents/ContentsPage.vue')
+                    import(
+                        /* webpackChunkName: "contents" */ './pages/contents/ContentsPage.vue'
+                    )
             },
             {
                 path: '/book/contents/:chapter/:subchapter?',
                 name: 'chapter',
                 component: () =>
-                    import(/* webpackChunkName: "chapter" */ './pages/chapter/ChapterPage.vue'),
+                    import(
+                        /* webpackChunkName: "chapter" */ './pages/chapter/ChapterPage.vue'
+                    ),
                 beforeEnter: async (to, from, next) => {
                     let isEnterToApp = from.name === null;
 
@@ -113,7 +123,9 @@ export const create = (store: Store<{}>) => {
                 path: '*',
                 name: 'not-found',
                 component: () =>
-                    import(/* webpackChunkName: "not-found" */ './pages/not-found/NotFoundPage.vue')
+                    import(
+                        /* webpackChunkName: "not-found" */ './pages/not-found/NotFoundPage.vue'
+                    )
             }
         ]
     });
