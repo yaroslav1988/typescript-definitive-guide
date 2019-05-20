@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "upgrade": "npx npm-upgrade",
         "update-book-contents": "./get-last-version-book-contents-from-github.sh",
         "serve": "npm run update-book-contents && vue-cli-service serve",
         "build": "vue-cli-service build",
