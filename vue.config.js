@@ -5,7 +5,7 @@ const path = require( 'path' );
 
 
 module.exports = {
-    baseUrl: process.env.NODE_ENV === 'production'
+    publicPath: process.env.NODE_ENV === 'production'
         ? '/typescript-definitive-guide/'
         : '/',
     pluginOptions: {

@@ -57,7 +57,7 @@ export const create = (store: Store<{}>) => {
                 name: 'note',
                 component: () =>
                     import(
-                        /* webpackChunkName: "chapter" */ './pages/note/ChapterPage.vue'
+                        /* webpackChunkName: "note" */ './pages/note/ChapterPage.vue'
                     ),
                 beforeEnter: async (to, from, next) => {
                     let isEnterToApp = from.name === null;
